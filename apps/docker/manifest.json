@@ -1,0 +1,266 @@
+{
+  "id": "docker",
+  "name": "Docker",
+  "version": "24.0.7",
+  "description": {
+    "en": "Container platform for deploying and managing applications. Docker enables you to run isolated applications in containers.",
+    "fr": "Plateforme de conteneurs pour déployer et gérer des applications. Docker permet d'exécuter des applications isolées dans des conteneurs."
+  },
+  "author": "Docker Inc.",
+  "license": "Apache-2.0",
+  "website": "https://www.docker.com",
+  "icon": "mdi:docker",
+  "changelog": "https://docs.docker.com/engine/release-notes/24.0/",
+
+  "requirements": {
+    "min_ram": 512,
+    "min_disk": 500,
+    "arch": ["aarch64", "x86_64"],
+    "dependencies": []
+  },
+
+  "install": {
+    "type": "binary",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${PACKAGES_DIR}/docker"
+      },
+      {
+        "action": "download",
+        "url": "https://download.docker.com/linux/static/stable/${ARCH}/docker-24.0.7.tgz",
+        "sha256_aarch64": "04e7e7f58a1df9ff295413b0c6e0a948b9e6f4ea4ba1a2b51d88eae8f7ee5b6f",
+        "sha256_x86_64": "61a12b13ec67fe8e0a5a30a3c2c23e1a0e3c9f5d0e0f9a8b7c6d5e4f3a2b1c0d",
+        "dest": "${DOWNLOADS_DIR}/docker-24.0.7.tgz"
+      },
+      {
+        "action": "extract",
+        "src": "${DOWNLOADS_DIR}/docker-24.0.7.tgz",
+        "dest": "${PACKAGES_DIR}/docker"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/docker",
+        "dest": "${BIN_DIR}/docker"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/dockerd",
+        "dest": "${BIN_DIR}/dockerd"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/containerd",
+        "dest": "${BIN_DIR}/containerd"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/containerd-shim-runc-v2",
+        "dest": "${BIN_DIR}/containerd-shim-runc-v2"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/ctr",
+        "dest": "${BIN_DIR}/ctr"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/runc",
+        "dest": "${BIN_DIR}/runc"
+      },
+      {
+        "action": "chmod",
+        "path": "${BIN_DIR}/docker",
+        "mode": "755"
+      },
+      {
+        "action": "chmod",
+        "path": "${BIN_DIR}/dockerd",
+        "mode": "755"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/docker"
+      },
+      {
+        "action": "template",
+        "src": "docker.service",
+        "dest": "/storage/.config/system.d/docker.service"
+      },
+      {
+        "action": "template",
+        "src": "daemon.json",
+        "dest": "${DATA_DIR}/docker/daemon.json"
+      },
+      {
+        "action": "exec",
+        "command": "systemctl daemon-reload"
+      },
+      {
+        "action": "exec",
+        "command": "systemctl enable docker.service"
+      },
+      {
+        "action": "exec",
+        "command": "systemctl start docker.service"
+      }
+    ]
+  },
+
+  "uninstall": {
+    "steps": [
+      {
+        "action": "exec",
+        "command": "systemctl stop docker.service",
+        "ignore_error": true
+      },
+      {
+        "action": "exec",
+        "command": "systemctl disable docker.service",
+        "ignore_error": true
+      },
+      {
+        "action": "delete",
+        "path": "/storage/.config/system.d/docker.service"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/docker"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/dockerd"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/containerd"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/containerd-shim-runc-v2"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/ctr"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/runc"
+      },
+      {
+        "action": "delete",
+        "path": "${PACKAGES_DIR}/docker"
+      },
+      {
+        "action": "exec",
+        "command": "systemctl daemon-reload"
+      }
+    ]
+  },
+
+  "files": {
+    "docker.service": "W1VuaXRdCkRlc2NyaXB0aW9uPURvY2tlciBBcHBsaWNhdGlvbiBDb250YWluZXIgRW5naW5lCkRvY3VtZW50YXRpb249aHR0cHM6Ly9kb2NzLmRvY2tlci5jb20KQWZ0ZXI9bmV0d29yay10YXJnZXQudGFyZ2V0IGxvY2FsLWZzLnRhcmdldApXYW50cz1uZXR3b3JrLXRhcmdldC50YXJnZXQKCltTZXJ2aWNlXQpUeXBlPW5vdGlmeQpFbnZpcm9ubWVudD0iUEFUSD0vc3RvcmFnZS8ucGluYXMvYmluOi91c3IvbG9jYWwvYmluOi91c3IvYmluOi9iaW4iCkV4ZWNTdGFydD0vc3RvcmFnZS8ucGluYXMvYmluL2RvY2tlcmQgLS1jb25maWctZmlsZT0vc3RvcmFnZS8ucGluYXMvZG9ja2VyL2RhZW1vbi5qc29uCkV4ZWNSZWxvYWQ9L2Jpbi9raWxsIC1zIEhVUCAkTUFJTlBJRApUaW1lb3V0U3RhcnRTZWM9MAoKUmVzdGFydD1hbHdheXMKUmVzdGFydFNlYz01cwoKTGltaXROT0ZJTEU9MTA0ODU3NgpMaW1pdE5QUk9DPWluZmluaXR5CkxpbWl0Q09SRT1pbmZpbml0eQoKRGVsZWdhdGU9eWVzCktpbGxNb2RlPXByb2Nlc3MKT09NU2NvcmVBZGp1c3Q9LTUwMAoKW0luc3RhbGxdCldhbnRlZEJ5PW11bHRpLXVzZXIudGFyZ2V0Cg==",
+    "daemon.json": "ewogICJkYXRhLXJvb3QiOiAiL3N0b3JhZ2UvLnBpbmFzL2RvY2tlci9kYXRhIiwKICAic3RvcmFnZS1kcml2ZXIiOiAib3ZlcmxheTIiLAogICJsb2ctZHJpdmVyIjogImpzb24tZmlsZSIsCiAgImxvZy1vcHRzIjogewogICAgIm1heC1zaXplIjogIjEwbSIsCiAgICAibWF4LWZpbGUiOiAiMyIKICB9LAogICJkZWZhdWx0LWFkZHJlc3MtcG9vbHMiOiBbCiAgICB7CiAgICAgICJiYXNlIjogIjE3Mi4xNy4wLjAvMTYiLAogICAgICAic2l6ZSI6IDI0CiAgICB9CiAgXQp9Cg=="
+  },
+
+  "config": {
+    "data_dir": "${DATA_DIR}/docker/data",
+    "config_file": "${DATA_DIR}/docker/daemon.json"
+  },
+
+  "frontend": {
+    "component": "DockerApp",
+    "icon": "mdi:docker",
+    "gradient": "from-blue-500 to-blue-600",
+    "window": {
+      "width": 1000,
+      "height": 650,
+      "min_width": 800,
+      "min_height": 500
+    },
+    "i18n": {
+      "en": {
+        "serviceStatus": "Service status",
+        "status": {
+          "normal": "Running",
+          "stopped": "Stopped",
+          "error": "Error"
+        },
+        "stats": {
+          "projects": "Projects",
+          "containers": "Containers",
+          "local": "Images",
+          "data": "Data"
+        },
+        "cpuUsage": "CPU usage",
+        "memoryCapacity": "Memory capacity",
+        "available": "Available",
+        "views": {
+          "overview": "Overview",
+          "project": "Project",
+          "container": "Container",
+          "image": "Image",
+          "network": "Network",
+          "log": "Log",
+          "management": "Settings"
+        },
+        "table": {
+          "name": "Name",
+          "image": "Image",
+          "status": "Status",
+          "ports": "Ports",
+          "actions": "Actions",
+          "repository": "Repository",
+          "tag": "Tag",
+          "imageId": "Image ID",
+          "size": "Size",
+          "created": "Created"
+        },
+        "noContainers": "No containers found",
+        "noImages": "No images found",
+        "underDevelopment": "This section is under development"
+      },
+      "fr": {
+        "serviceStatus": "État du service",
+        "status": {
+          "normal": "En cours",
+          "stopped": "Arrêté",
+          "error": "Erreur"
+        },
+        "stats": {
+          "projects": "Projets",
+          "containers": "Conteneurs",
+          "local": "Images",
+          "data": "Données"
+        },
+        "cpuUsage": "Utilisation CPU",
+        "memoryCapacity": "Capacité mémoire",
+        "available": "Disponible",
+        "views": {
+          "overview": "Aperçu",
+          "project": "Projet",
+          "container": "Conteneur",
+          "image": "Image",
+          "network": "Réseau",
+          "log": "Journal",
+          "management": "Paramètres"
+        },
+        "table": {
+          "name": "Nom",
+          "image": "Image",
+          "status": "Statut",
+          "ports": "Ports",
+          "actions": "Actions",
+          "repository": "Dépôt",
+          "tag": "Tag",
+          "imageId": "ID Image",
+          "size": "Taille",
+          "created": "Créé"
+        },
+        "noContainers": "Aucun conteneur trouvé",
+        "noImages": "Aucune image trouvée",
+        "underDevelopment": "Cette section est en cours de développement"
+      }
+    }
+  }
+}

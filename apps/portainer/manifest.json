@@ -1,0 +1,126 @@
+{
+  "id": "portainer",
+  "name": "Portainer",
+  "version": "2.19.4",
+  "description": {
+    "en": "Lightweight management UI for Docker. Easily manage containers, images, networks and volumes from a web interface.",
+    "fr": "Interface légère de gestion Docker. Gérez facilement vos conteneurs, images, réseaux et volumes depuis une interface web."
+  },
+  "author": "Portainer.io",
+  "license": "Zlib",
+  "website": "https://www.portainer.io",
+  "icon": "simple-icons:portainer",
+  "changelog": "https://github.com/portainer/portainer/releases",
+
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 100,
+    "arch": ["aarch64", "x86_64"],
+    "dependencies": ["docker"]
+  },
+
+  "install": {
+    "type": "docker",
+    "image": "portainer/portainer-ce:2.19.4",
+    "container": {
+      "name": "portainer",
+      "hostname": "portainer",
+      "restart": "unless-stopped",
+      "network": "bridge",
+      "ports": [
+        { "host": 9000, "container": 9000, "protocol": "tcp" },
+        { "host": 9443, "container": 9443, "protocol": "tcp" }
+      ],
+      "volumes": [
+        { "host": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": false },
+        { "host": "${DATA_DIR}/apps/portainer/data", "container": "/data", "readonly": false }
+      ],
+      "environment": [],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "portainer"
+      }
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/apps/portainer/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "portainer/portainer-ce:2.19.4"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "portainer",
+          "hostname": "portainer",
+          "image": "portainer/portainer-ce:2.19.4",
+          "restart": "unless-stopped",
+          "ports": [
+            { "host": 9000, "container": 9000, "protocol": "tcp" },
+            { "host": 9443, "container": 9443, "protocol": "tcp" }
+          ],
+          "volumes": [
+            { "host": "/var/run/docker.sock", "container": "/var/run/docker.sock" },
+            { "host": "${DATA_DIR}/apps/portainer/data", "container": "/data" }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "portainer"
+          }
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "portainer"
+      }
+    ]
+  },
+
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "portainer"
+      },
+      {
+        "action": "docker_rm",
+        "container": "portainer"
+      }
+    ]
+  },
+
+  "files": {},
+
+  "config": {
+    "port": 9000,
+    "port_https": 9443,
+    "data_dir": "${DATA_DIR}/apps/portainer/data"
+  },
+
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "simple-icons:portainer",
+    "gradient": "from-cyan-500 to-blue-500",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 9000,
+      "path": "/",
+      "title": "Portainer"
+    },
+    "i18n": {
+      "en": {
+        "description": "Docker management interface"
+      },
+      "fr": {
+        "description": "Interface de gestion Docker"
+      }
+    }
+  }
+}

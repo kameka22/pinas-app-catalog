@@ -1,0 +1,143 @@
+{
+  "id": "plex",
+  "name": "Plex Media Server",
+  "version": "1.32.8",
+  "description": {
+    "en": "Stream your media collection to any device. Plex organizes your movies, TV shows, music, and photos in a beautiful interface.",
+    "fr": "Diffusez votre collection multimédia sur n'importe quel appareil. Plex organise vos films, séries, musique et photos dans une belle interface."
+  },
+  "author": "Plex Inc.",
+  "license": "Proprietary",
+  "website": "https://www.plex.tv",
+  "icon": "mdi:plex",
+  "changelog": "https://forums.plex.tv/c/plex-media-server/release-notes",
+
+  "requirements": {
+    "min_ram": 1024,
+    "min_disk": 500,
+    "arch": ["aarch64", "x86_64"],
+    "dependencies": ["docker"]
+  },
+
+  "install": {
+    "type": "docker",
+    "image": "linuxserver/plex:1.32.8",
+    "container": {
+      "name": "plex",
+      "hostname": "plex",
+      "restart": "unless-stopped",
+      "network": "host",
+      "ports": [],
+      "volumes": [
+        { "host": "${DATA_DIR}/apps/plex/config", "container": "/config", "readonly": false },
+        { "host": "${DATA_DIR}/apps/plex/transcode", "container": "/transcode", "readonly": false },
+        { "host": "/storage/media", "container": "/media", "readonly": true }
+      ],
+      "environment": [
+        { "name": "PUID", "value": "0" },
+        { "name": "PGID", "value": "0" },
+        { "name": "TZ", "value": "Europe/Paris" },
+        { "name": "VERSION", "value": "docker" }
+      ],
+      "devices": [
+        "/dev/dri:/dev/dri"
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "plex"
+      }
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/apps/plex/config"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/apps/plex/transcode"
+      },
+      {
+        "action": "docker_pull",
+        "image": "linuxserver/plex:1.32.8"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "plex",
+          "hostname": "plex",
+          "image": "linuxserver/plex:1.32.8",
+          "restart": "unless-stopped",
+          "network": "host",
+          "volumes": [
+            { "host": "${DATA_DIR}/apps/plex/config", "container": "/config" },
+            { "host": "${DATA_DIR}/apps/plex/transcode", "container": "/transcode" },
+            { "host": "/storage/media", "container": "/media", "readonly": true }
+          ],
+          "environment": [
+            { "name": "PUID", "value": "0" },
+            { "name": "PGID", "value": "0" },
+            { "name": "TZ", "value": "Europe/Paris" },
+            { "name": "VERSION", "value": "docker" }
+          ],
+          "devices": ["/dev/dri:/dev/dri"],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "plex"
+          }
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "plex"
+      }
+    ]
+  },
+
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "plex"
+      },
+      {
+        "action": "docker_rm",
+        "container": "plex"
+      }
+    ]
+  },
+
+  "files": {},
+
+  "config": {
+    "port": 32400,
+    "config_dir": "${DATA_DIR}/apps/plex/config",
+    "media_dir": "/storage/media"
+  },
+
+  "frontend": {
+    "component": "WebviewApp",
+    "icon": "mdi:plex",
+    "gradient": "from-amber-500 to-orange-500",
+    "window": {
+      "width": 500,
+      "height": 400,
+      "min_width": 400,
+      "min_height": 300
+    },
+    "config": {
+      "port": 32400,
+      "path": "/web",
+      "checkHealth": true
+    },
+    "i18n": {
+      "en": {
+        "description": "Opens the Plex web interface in a new browser tab",
+        "tip": "Configure your libraries and settings in the Plex interface"
+      },
+      "fr": {
+        "description": "Ouvre l'interface web Plex dans un nouvel onglet",
+        "tip": "Configurez vos bibliothèques et paramètres dans l'interface Plex"
+      }
+    }
+  }
+}
