@@ -86,6 +86,18 @@
         "fr": "Blocage de publicités au niveau réseau"
       },
       "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/pihole/manifest.json"
+    },
+    {
+      "id": "samba",
+      "name": "Samba",
+      "version": "4.18.0",
+      "category": "network",
+      "icon": "mdi:microsoft-windows",
+      "description": {
+        "en": "Windows file sharing service (SMB/CIFS)",
+        "fr": "Service de partage de fichiers Windows (SMB/CIFS)"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/samba/manifest.json"
     }
   ],
   "categories": [
@@ -112,6 +124,14 @@
         "fr": "Utilitaires"
       },
       "icon": "mdi:tools"
+    },
+    {
+      "id": "network",
+      "name": {
+        "en": "Network",
+        "fr": "Réseau"
+      },
+      "icon": "mdi:lan"
     }
   ]
 }
