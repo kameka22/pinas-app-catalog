@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "updated": "2025-01-19T00:00:00Z",
-  "repository": "https://github.com/pinas/app-catalog",
+  "repository": "https://github.com/kameka22/pinas-app-catalog",
   "apps": [
     {
       "id": "docker",
@@ -13,7 +13,7 @@
         "en": "Container platform for deploying and managing applications",
         "fr": "Plateforme de conteneurs pour déployer et gérer des applications"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/docker/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/docker/manifest.json"
     },
     {
       "id": "portainer",
@@ -25,7 +25,7 @@
         "en": "Web-based Docker management interface",
         "fr": "Interface web de gestion Docker"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/portainer/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/portainer/manifest.json"
     },
     {
       "id": "plex",
@@ -37,7 +37,7 @@
         "en": "Media server for streaming your movies, TV shows and music",
         "fr": "Serveur média pour diffuser vos films, séries et musique"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/plex/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/plex/manifest.json"
     },
     {
       "id": "nextcloud",
@@ -49,7 +49,7 @@
         "en": "Self-hosted productivity platform and file sync",
         "fr": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/nextcloud/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/nextcloud/manifest.json"
     },
     {
       "id": "transmission",
@@ -61,7 +61,7 @@
         "en": "Lightweight BitTorrent client",
         "fr": "Client BitTorrent léger"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/transmission/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/transmission/manifest.json"
     },
     {
       "id": "homeassistant",
@@ -73,7 +73,7 @@
         "en": "Open source home automation platform",
         "fr": "Plateforme domotique open source"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/homeassistant/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/homeassistant/manifest.json"
     },
     {
       "id": "pihole",
@@ -85,7 +85,7 @@
         "en": "Network-wide ad blocking",
         "fr": "Blocage de publicités au niveau réseau"
       },
-      "manifest": "https://raw.githubusercontent.com/pinas/app-catalog/main/apps/pihole/manifest.json"
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/main/apps/pihole/manifest.json"
     }
   ],
   "categories": [
