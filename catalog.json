@@ -9,6 +9,7 @@
       "version": "24.0.7",
       "category": "containers",
       "icon": "mdi:docker",
+      "dependencies": [],
       "description": {
         "en": "Container platform for deploying and managing applications",
         "fr": "Plateforme de conteneurs pour déployer et gérer des applications"
@@ -21,6 +22,7 @@
       "version": "2.19.4",
       "category": "containers",
       "icon": "simple-icons:portainer",
+      "dependencies": ["docker"],
       "description": {
         "en": "Web-based Docker management interface",
         "fr": "Interface web de gestion Docker"
@@ -33,6 +35,7 @@
       "version": "1.32.8",
       "category": "media",
       "icon": "mdi:plex",
+      "dependencies": ["docker"],
       "description": {
         "en": "Media server for streaming your movies, TV shows and music",
         "fr": "Serveur média pour diffuser vos films, séries et musique"
@@ -45,6 +48,7 @@
       "version": "28.0.1",
       "category": "utilities",
       "icon": "mdi:cloud",
+      "dependencies": ["docker"],
       "description": {
         "en": "Self-hosted productivity platform and file sync",
         "fr": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
@@ -57,6 +61,7 @@
       "version": "4.0.5",
       "category": "utilities",
       "icon": "mdi:download",
+      "dependencies": ["docker"],
       "description": {
         "en": "Lightweight BitTorrent client",
         "fr": "Client BitTorrent léger"
@@ -69,6 +74,7 @@
       "version": "2024.1.0",
       "category": "utilities",
       "icon": "mdi:home-assistant",
+      "dependencies": ["docker"],
       "description": {
         "en": "Open source home automation platform",
         "fr": "Plateforme domotique open source"
@@ -81,6 +87,7 @@
       "version": "5.18.2",
       "category": "utilities",
       "icon": "mdi:shield-check",
+      "dependencies": ["docker"],
       "description": {
         "en": "Network-wide ad blocking",
         "fr": "Blocage de publicités au niveau réseau"
@@ -93,6 +100,7 @@
       "version": "4.18.0",
       "category": "network",
       "icon": "mdi:microsoft-windows",
+      "dependencies": [],
       "description": {
         "en": "Windows file sharing service (SMB/CIFS)",
         "fr": "Service de partage de fichiers Windows (SMB/CIFS)"

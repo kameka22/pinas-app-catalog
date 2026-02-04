@@ -29,8 +29,6 @@
       {
         "action": "download",
         "url": "https://download.docker.com/linux/static/stable/${ARCH}/docker-24.0.7.tgz",
-        "sha256_aarch64": "04e7e7f58a1df9ff295413b0c6e0a948b9e6f4ea4ba1a2b51d88eae8f7ee5b6f",
-        "sha256_x86_64": "61a12b13ec67fe8e0a5a30a3c2c23e1a0e3c9f5d0e0f9a8b7c6d5e4f3a2b1c0d",
         "dest": "${DOWNLOADS_DIR}/docker-24.0.7.tgz"
       },
       {
