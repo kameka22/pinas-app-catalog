@@ -67,6 +67,21 @@
         "dest": "${BIN_DIR}/runc"
       },
       {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/docker-proxy",
+        "dest": "${BIN_DIR}/docker-proxy"
+      },
+      {
+        "action": "symlink",
+        "src": "${PACKAGES_DIR}/docker/docker/docker-init",
+        "dest": "${BIN_DIR}/docker-init"
+      },
+      {
+        "action": "download",
+        "url": "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-${ARCH}",
+        "dest": "${BIN_DIR}/docker-compose"
+      },
+      {
         "action": "chmod",
         "path": "${BIN_DIR}/docker",
         "mode": "755"
@@ -74,6 +89,11 @@
       {
         "action": "chmod",
         "path": "${BIN_DIR}/dockerd",
+        "mode": "755"
+      },
+      {
+        "action": "chmod",
+        "path": "${BIN_DIR}/docker-compose",
         "mode": "755"
       },
       {
@@ -144,6 +164,18 @@
       {
         "action": "delete",
         "path": "${BIN_DIR}/runc"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/docker-proxy"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/docker-init"
+      },
+      {
+        "action": "delete",
+        "path": "${BIN_DIR}/docker-compose"
       },
       {
         "action": "delete",

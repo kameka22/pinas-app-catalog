@@ -30,7 +30,7 @@
       "ports": [
         { "host": 53, "container": 53, "protocol": "tcp" },
         { "host": 53, "container": 53, "protocol": "udp" },
-        { "host": 8080, "container": 80, "protocol": "tcp" }
+        { "host": 8081, "container": 80, "protocol": "tcp" }
       ],
       "volumes": [
         { "host": "${DATA_DIR}/apps/pihole/etc-pihole", "container": "/etc/pihole", "readonly": false },
@@ -68,7 +68,7 @@
           "ports": [
             { "host": 53, "container": 53, "protocol": "tcp" },
             { "host": 53, "container": 53, "protocol": "udp" },
-            { "host": 8080, "container": 80, "protocol": "tcp" }
+            { "host": 8081, "container": 80, "protocol": "tcp" }
           ],
           "volumes": [
             { "host": "${DATA_DIR}/apps/pihole/etc-pihole", "container": "/etc/pihole" },
@@ -108,7 +108,7 @@
 
   "config": {
     "dns_port": 53,
-    "web_port": 8080,
+    "web_port": 8081,
     "default_password": "pinas",
     "data_dir": "${DATA_DIR}/apps/pihole"
   },
@@ -124,7 +124,7 @@
       "min_height": 600
     },
     "config": {
-      "port": 8080,
+      "port": 8081,
       "path": "/admin",
       "title": "Pi-hole"
     },
