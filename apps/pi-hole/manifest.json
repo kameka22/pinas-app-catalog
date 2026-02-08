@@ -1,0 +1,169 @@
+{
+  "id": "pi-hole",
+  "name": "Pi-hole",
+  "version": "2025.11.1",
+  "description": {
+    "en": "Block ads on your entire network",
+    "fr": "Blocage de publicités au niveau réseau"
+  },
+  "author": "Pi-hole®",
+  "license": null,
+  "website": "https://pi-hole.net",
+  "icon": "mdi:shield-check",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "pihole/pihole:2025.11.1",
+    "container": {
+      "name": "pi-hole",
+      "hostname": "pi-hole",
+      "image": "pihole/pihole:2025.11.1",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data/pihole",
+          "container": "/etc/pihole/",
+          "readonly": false
+        },
+        {
+          "host": "${APP_DATA_DIR}/data/dnsmasq",
+          "container": "/etc/dnsmasq.d/",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "FTLCONF_webserver_api_password",
+          "value": "${APP_PASSWORD}"
+        },
+        {
+          "name": "FTLCONF_webserver_port",
+          "value": "8082,[::]:8082"
+        },
+        {
+          "name": "FTLCONF_dns_listeningMode",
+          "value": "all"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "pi-hole"
+      },
+      "network": "host",
+      "cap_add": [
+        "NET_ADMIN"
+      ]
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/pihole"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/dnsmasq"
+      },
+      {
+        "action": "docker_pull",
+        "image": "pihole/pihole:2025.11.1"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "pi-hole",
+          "hostname": "pi-hole",
+          "image": "pihole/pihole:2025.11.1",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data/pihole",
+              "container": "/etc/pihole/",
+              "readonly": false
+            },
+            {
+              "host": "${APP_DATA_DIR}/data/dnsmasq",
+              "container": "/etc/dnsmasq.d/",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "FTLCONF_webserver_api_password",
+              "value": "${APP_PASSWORD}"
+            },
+            {
+              "name": "FTLCONF_webserver_port",
+              "value": "8082,[::]:8082"
+            },
+            {
+              "name": "FTLCONF_dns_listeningMode",
+              "value": "all"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "pi-hole"
+          },
+          "network": "host",
+          "cap_add": [
+            "NET_ADMIN"
+          ]
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "pi-hole"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "pi-hole"
+      },
+      {
+        "action": "docker_rm",
+        "container": "pi-hole"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:shield-check",
+    "gradient": "from-red-500 to-rose-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8082,
+      "path": "/admin/",
+      "title": "Pi-hole"
+    },
+    "i18n": {
+      "en": {
+        "description": "Block ads on your entire network"
+      },
+      "fr": {
+        "description": "Blocage de publicités au niveau réseau"
+      }
+    }
+  }
+}

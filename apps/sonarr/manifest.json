@@ -1,0 +1,81 @@
+{
+  "id": "sonarr",
+  "name": "Sonarr",
+  "version": "4.0.16.2944",
+  "description": {
+    "en": "Smart PVR for newsgroup and bittorrent users",
+    "fr": "Gestionnaire automatique de séries TV"
+  },
+  "author": "Sonarr",
+  "license": null,
+  "website": "https://sonarr.tv/",
+  "icon": "mdi:television-classic",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker",
+      "transmission"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "linuxserver/sonarr:4.0.16",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/config"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/downloads"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  server:\n    image: linuxserver/sonarr:4.0.16\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n    - PUID=1000\n    - PGID=1000\n  mac:\n    image: getumbrel/media-app-configurator:v1.3.0\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n      APP_ID: sonarr\n      APP_URL: http://sonarr_server_1:8989\n      TRANSMISSION_HOST: transmission_server_1\n      TRANSMISSION_PORT: '9091'\n      ROOT_FOLDER: /downloads/shows\n      QBITTORRENT_INSTALLED: ${APP_SONARR_QBITTORRENT_INSTALLED:-\"false\"}\n      QBITTORRENT_HOST: qbittorrent_server_1\n      QBITTORRENT_PORT: '8080'\n      SABNZBD_INSTALLED: ${APP_SONARR_SABNZBD_INSTALLED:-\"false\"}\n      SABNZBD_HOST: sabnzbd_web_1\n      SABNZBD_PORT: '8080'\n      SABNZBD_API_KEY: ${APP_SONARR_SABNZBD_API_KEY:-\"\"}\n    user: 1000:1000\n",
+        "project_name": "sonarr"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "sonarr"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:television-classic",
+    "gradient": "from-sky-500 to-blue-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8989,
+      "path": "",
+      "title": "Sonarr"
+    },
+    "i18n": {
+      "en": {
+        "description": "Smart PVR for newsgroup and bittorrent users"
+      },
+      "fr": {
+        "description": "Gestionnaire automatique de séries TV"
+      }
+    }
+  }
+}

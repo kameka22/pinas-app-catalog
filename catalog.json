@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2025-01-19T00:00:00Z",
+  "updated": "2026-02-08T00:00:00Z",
   "repository": "https://github.com/kameka22/pinas-app-catalog",
   "apps": [
     {
@@ -22,77 +22,14 @@
       "version": "2.19.4",
       "category": "containers",
       "icon": "simple-icons:portainer",
-      "dependencies": ["docker"],
+      "dependencies": [
+        "docker"
+      ],
       "description": {
         "en": "Web-based Docker management interface",
         "fr": "Interface web de gestion Docker"
       },
       "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/portainer/manifest.json"
-    },
-    {
-      "id": "plex",
-      "name": "Plex Media Server",
-      "version": "1.32.8",
-      "category": "media",
-      "icon": "mdi:plex",
-      "dependencies": ["docker"],
-      "description": {
-        "en": "Media server for streaming your movies, TV shows and music",
-        "fr": "Serveur média pour diffuser vos films, séries et musique"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/plex/manifest.json"
-    },
-    {
-      "id": "nextcloud",
-      "name": "Nextcloud",
-      "version": "28.0.1",
-      "category": "utilities",
-      "icon": "mdi:cloud",
-      "dependencies": ["docker"],
-      "description": {
-        "en": "Self-hosted productivity platform and file sync",
-        "fr": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/nextcloud/manifest.json"
-    },
-    {
-      "id": "transmission",
-      "name": "Transmission",
-      "version": "4.0.5",
-      "category": "utilities",
-      "icon": "mdi:download",
-      "dependencies": ["docker"],
-      "description": {
-        "en": "Lightweight BitTorrent client",
-        "fr": "Client BitTorrent léger"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/transmission/manifest.json"
-    },
-    {
-      "id": "homeassistant",
-      "name": "Home Assistant",
-      "version": "2024.1.0",
-      "category": "utilities",
-      "icon": "mdi:home-assistant",
-      "dependencies": ["docker"],
-      "description": {
-        "en": "Open source home automation platform",
-        "fr": "Plateforme domotique open source"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/homeassistant/manifest.json"
-    },
-    {
-      "id": "pihole",
-      "name": "Pi-hole",
-      "version": "5.18.2",
-      "category": "utilities",
-      "icon": "mdi:shield-check",
-      "dependencies": ["docker"],
-      "description": {
-        "en": "Network-wide ad blocking",
-        "fr": "Blocage de publicités au niveau réseau"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/pihole/manifest.json"
     },
     {
       "id": "samba",
@@ -106,6 +43,381 @@
         "fr": "Service de partage de fichiers Windows (SMB/CIFS)"
       },
       "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/samba/manifest.json"
+    },
+    {
+      "id": "adguard-home",
+      "name": "AdGuard Home",
+      "version": "0.107.71",
+      "category": "network",
+      "icon": "mdi:shield-half-full",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Network-wide software for blocking ads and tracking",
+        "fr": "Serveur DNS anti-publicités et anti-trackers"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/adguard-home/manifest.json"
+    },
+    {
+      "id": "code-server",
+      "name": "code-server",
+      "version": "4.108.2",
+      "category": "utilities",
+      "icon": "mdi:microsoft-visual-studio-code",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Run VS Code on your Umbrel",
+        "fr": "VS Code dans le navigateur"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/code-server/manifest.json"
+    },
+    {
+      "id": "duplicati",
+      "name": "Duplicati",
+      "version": "v2.2.0.3_stable_2026-01-06",
+      "category": "utilities",
+      "icon": "mdi:backup-restore",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Store securely encrypted backups in the cloud",
+        "fr": "Sauvegarde chiffrée dans le cloud"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/duplicati/manifest.json"
+    },
+    {
+      "id": "emby",
+      "name": "Emby",
+      "version": "4.9.3.0",
+      "category": "media",
+      "icon": "mdi:play-network",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "A personal media server",
+        "fr": "Serveur multimédia personnel"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/emby/manifest.json"
+    },
+    {
+      "id": "file-browser",
+      "name": "File Browser",
+      "version": "2.57.0",
+      "category": "utilities",
+      "icon": "mdi:folder",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Browse and manage the files you download on your Umbrel",
+        "fr": "Gestionnaire de fichiers web avec interface moderne"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/file-browser/manifest.json"
+    },
+    {
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.3.2",
+      "category": "utilities",
+      "icon": "mdi:chart-line",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "The open-source platform for monitoring and observability",
+        "fr": "Plateforme de visualisation et monitoring"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/grafana/manifest.json"
+    },
+    {
+      "id": "home-assistant",
+      "name": "Home Assistant",
+      "version": "2026.2.0",
+      "category": "utilities",
+      "icon": "mdi:home-assistant",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Home automation that puts local control & privacy first",
+        "fr": "Plateforme domotique open source"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/home-assistant/manifest.json"
+    },
+    {
+      "id": "jellyfin",
+      "name": "Jellyfin",
+      "version": "10.11.6",
+      "category": "media",
+      "icon": "mdi:filmstrip",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "The Free Software Media System",
+        "fr": "Serveur multimédia libre pour diffuser vos films, séries et musique"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/jellyfin/manifest.json"
+    },
+    {
+      "id": "lidarr",
+      "name": "Lidarr",
+      "version": "3.1.0.4875",
+      "category": "media",
+      "icon": "mdi:music",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Looks and smells like Sonarr but made for music",
+        "fr": "Gestionnaire automatique de musique"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/lidarr/manifest.json"
+    },
+    {
+      "id": "nextcloud",
+      "name": "Nextcloud",
+      "version": "32.0.5",
+      "category": "utilities",
+      "icon": "mdi:cloud",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Productivity platform that keeps you in control",
+        "fr": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/nextcloud/manifest.json"
+    },
+    {
+      "id": "nginx-proxy-manager",
+      "name": "Nginx Proxy Manager",
+      "version": "2.13.7",
+      "category": "network",
+      "icon": "mdi:web",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Expose your services easily and securely",
+        "fr": "Gestionnaire de proxy inverse avec certificats SSL"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/nginx-proxy-manager/manifest.json"
+    },
+    {
+      "id": "node-red",
+      "name": "Node-RED (Bitcoin)",
+      "version": "4.1.4",
+      "category": "utilities",
+      "icon": "mdi:sitemap",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Wire together the Internet of Things",
+        "fr": "Outil de programmation visuelle pour l'IoT"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/node-red/manifest.json"
+    },
+    {
+      "id": "paperless",
+      "name": "Paperless-ngx",
+      "version": "2.20.6",
+      "category": "utilities",
+      "icon": "mdi:file-document-multiple",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Transform your physical documents into a searchable online archive",
+        "fr": "Système de gestion de documents dématérialisés"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/paperless/manifest.json"
+    },
+    {
+      "id": "photoprism",
+      "name": "PhotoPrism",
+      "version": "251130-b3068414c",
+      "category": "media",
+      "icon": "mdi:image-multiple",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Self-host your photo and video library",
+        "fr": "Galerie photo auto-hébergée avec IA"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/photoprism/manifest.json"
+    },
+    {
+      "id": "pi-hole",
+      "name": "Pi-hole",
+      "version": "2025.11.1",
+      "category": "network",
+      "icon": "mdi:shield-check",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Block ads on your entire network",
+        "fr": "Blocage de publicités au niveau réseau"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/pi-hole/manifest.json"
+    },
+    {
+      "id": "plex",
+      "name": "Plex",
+      "version": "1.43.0.10467",
+      "category": "media",
+      "icon": "mdi:plex",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Stream Movies & TV Shows",
+        "fr": "Serveur multimédia pour diffuser vos films, séries et musique"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/plex/manifest.json"
+    },
+    {
+      "id": "qbittorrent",
+      "name": "qBittorrent",
+      "version": "5.1.2-auth-proxy-patch",
+      "category": "media",
+      "icon": "mdi:download-circle",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Free and reliable P2P Bittorrent client",
+        "fr": "Client BitTorrent puissant avec interface web"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/qbittorrent/manifest.json"
+    },
+    {
+      "id": "radarr",
+      "name": "Radarr",
+      "version": "6.0.4.10291",
+      "category": "media",
+      "icon": "mdi:filmstrip-box",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Your movie collection manager",
+        "fr": "Gestionnaire automatique de films"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/radarr/manifest.json"
+    },
+    {
+      "id": "sabnzbd",
+      "name": "SABnzbd",
+      "version": "4.5.5",
+      "category": "media",
+      "icon": "mdi:download-box",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "The automated Usenet download tool",
+        "fr": "Téléchargeur Usenet automatisé"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/sabnzbd/manifest.json"
+    },
+    {
+      "id": "sonarr",
+      "name": "Sonarr",
+      "version": "4.0.16.2944",
+      "category": "media",
+      "icon": "mdi:television-classic",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Smart PVR for newsgroup and bittorrent users",
+        "fr": "Gestionnaire automatique de séries TV"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/sonarr/manifest.json"
+    },
+    {
+      "id": "syncthing",
+      "name": "Syncthing",
+      "version": "2.0.14",
+      "category": "utilities",
+      "icon": "mdi:sync",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Peer-to-peer file synchronization between your devices",
+        "fr": "Synchronisation continue de fichiers entre appareils"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/syncthing/manifest.json"
+    },
+    {
+      "id": "transmission",
+      "name": "Transmission",
+      "version": "4.1.0",
+      "category": "media",
+      "icon": "mdi:download",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "A fast, easy and free BitTorrent client",
+        "fr": "Client BitTorrent léger et efficace"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/transmission/manifest.json"
+    },
+    {
+      "id": "uptime-kuma",
+      "name": "Uptime Kuma",
+      "version": "2.0.2-auth-proxy-patch",
+      "category": "utilities",
+      "icon": "mdi:monitor-dashboard",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Self-hosted uptime monitoring tool",
+        "fr": "Surveillance de disponibilité des services"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/uptime-kuma/manifest.json"
+    },
+    {
+      "id": "vaultwarden",
+      "name": "Vaultwarden",
+      "version": "1.34.3",
+      "category": "utilities",
+      "icon": "mdi:shield-key",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Unofficial Bitwarden® compatible server",
+        "fr": "Gestionnaire de mots de passe compatible Bitwarden"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/vaultwarden/manifest.json"
+    },
+    {
+      "id": "wireguard",
+      "name": "WireGuard",
+      "version": "14",
+      "category": "network",
+      "icon": "mdi:vpn",
+      "dependencies": [
+        "docker"
+      ],
+      "description": {
+        "en": "Run your own free and unlimited WireGuard VPN",
+        "fr": "VPN rapide et moderne"
+      },
+      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/wireguard/manifest.json"
     }
   ],
   "categories": [

@@ -1,0 +1,133 @@
+{
+  "id": "code-server",
+  "name": "code-server",
+  "version": "4.108.2",
+  "description": {
+    "en": "Run VS Code on your Umbrel",
+    "fr": "VS Code dans le navigateur"
+  },
+  "author": "Coder",
+  "license": null,
+  "website": "https://coder.com",
+  "icon": "mdi:microsoft-visual-studio-code",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "codercom/code-server:4.108.2",
+    "container": {
+      "name": "code-server",
+      "hostname": "code-server",
+      "image": "codercom/code-server:4.108.2",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/home/coder",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "PASSWORD",
+          "value": "$APP_PASSWORD"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "code-server"
+      },
+      "user": "1000:1000"
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "codercom/code-server:4.108.2"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "code-server",
+          "hostname": "code-server",
+          "image": "codercom/code-server:4.108.2",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/home/coder",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "PASSWORD",
+              "value": "$APP_PASSWORD"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "code-server"
+          },
+          "user": "1000:1000"
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "code-server"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "code-server"
+      },
+      {
+        "action": "docker_rm",
+        "container": "code-server"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:microsoft-visual-studio-code",
+    "gradient": "from-blue-600 to-blue-800",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8091,
+      "path": "",
+      "title": "code-server"
+    },
+    "i18n": {
+      "en": {
+        "description": "Run VS Code on your Umbrel"
+      },
+      "fr": {
+        "description": "VS Code dans le navigateur"
+      }
+    }
+  }
+}

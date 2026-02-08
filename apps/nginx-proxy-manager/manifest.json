@@ -1,0 +1,80 @@
+{
+  "id": "nginx-proxy-manager",
+  "name": "Nginx Proxy Manager",
+  "version": "2.13.7",
+  "description": {
+    "en": "Expose your services easily and securely",
+    "fr": "Gestionnaire de proxy inverse avec certificats SSL"
+  },
+  "author": "Jamie Curnow",
+  "license": null,
+  "website": "https://nginxproxymanager.com/",
+  "icon": "mdi:web",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "jc21/nginx-proxy-manager:2.13.7",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/letsencrypt"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/npm-data"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  web:\n    image: jc21/nginx-proxy-manager:2.13.7\n    restart: on-failure\n    ports:\n    - 40080:80\n    - 40443:443\n    volumes:\n    - ${APP_DATA_DIR}/data/npm-data:/data\n    - ${APP_DATA_DIR}/data/letsencrypt:/etc/letsencrypt\n  docker-host:\n    image: qoomon/docker-host:3.3.1\n    restart: on-failure\n    cap_add:\n    - NET_ADMIN\n    - NET_RAW\n",
+        "project_name": "nginx-proxy-manager"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "nginx-proxy-manager"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:web",
+    "gradient": "from-green-600 to-emerald-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 4498,
+      "path": "",
+      "title": "Nginx Proxy Manager"
+    },
+    "i18n": {
+      "en": {
+        "description": "Expose your services easily and securely"
+      },
+      "fr": {
+        "description": "Gestionnaire de proxy inverse avec certificats SSL"
+      }
+    }
+  }
+}

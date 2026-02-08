@@ -1,0 +1,161 @@
+{
+  "id": "syncthing",
+  "name": "Syncthing",
+  "version": "2.0.14",
+  "description": {
+    "en": "Peer-to-peer file synchronization between your devices",
+    "fr": "Synchronisation continue de fichiers entre appareils"
+  },
+  "author": "The Syncthing Foundation",
+  "license": null,
+  "website": "https://syncthing.net",
+  "icon": "mdi:sync",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "syncthing/syncthing:2.0.14",
+    "container": {
+      "name": "syncthing",
+      "hostname": "syncthing",
+      "image": "syncthing/syncthing:2.0.14",
+      "restart": "on-failure",
+      "ports": [
+        {
+          "host": 22000,
+          "container": 22000,
+          "protocol": "tcp"
+        },
+        {
+          "host": 22000,
+          "container": 22000,
+          "protocol": "udp"
+        }
+      ],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/var/syncthing",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "PUID",
+          "value": "1000"
+        },
+        {
+          "name": "PGID",
+          "value": "1000"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "syncthing"
+      }
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "syncthing/syncthing:2.0.14"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "syncthing",
+          "hostname": "syncthing",
+          "image": "syncthing/syncthing:2.0.14",
+          "restart": "on-failure",
+          "ports": [
+            {
+              "host": 22000,
+              "container": 22000,
+              "protocol": "tcp"
+            },
+            {
+              "host": 22000,
+              "container": 22000,
+              "protocol": "udp"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/var/syncthing",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "PUID",
+              "value": "1000"
+            },
+            {
+              "name": "PGID",
+              "value": "1000"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "syncthing"
+          }
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "syncthing"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "syncthing"
+      },
+      {
+        "action": "docker_rm",
+        "container": "syncthing"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:sync",
+    "gradient": "from-blue-400 to-cyan-500",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8384,
+      "path": "",
+      "title": "Syncthing"
+    },
+    "i18n": {
+      "en": {
+        "description": "Peer-to-peer file synchronization between your devices"
+      },
+      "fr": {
+        "description": "Synchronisation continue de fichiers entre appareils"
+      }
+    }
+  }
+}

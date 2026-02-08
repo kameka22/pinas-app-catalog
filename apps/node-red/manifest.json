@@ -1,0 +1,216 @@
+{
+  "id": "node-red",
+  "name": "Node-RED (Bitcoin)",
+  "version": "4.1.4",
+  "description": {
+    "en": "Wire together the Internet of Things",
+    "fr": "Outil de programmation visuelle pour l'IoT"
+  },
+  "author": "OpenJS Foundation",
+  "license": null,
+  "website": "https://nodered.org",
+  "icon": "mdi:sitemap",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker",
+      "bitcoin",
+      "electrs",
+      "lightning"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "nodered/node-red:4.1.4",
+    "container": {
+      "name": "node-red",
+      "hostname": "node-red",
+      "image": "nodered/node-red:4.1.4",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/data",
+          "readonly": false
+        },
+        {
+          "host": "",
+          "container": "/lnd",
+          "readonly": true
+        }
+      ],
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "1880"
+        },
+        {
+          "name": "BITCOIN_NETWORK",
+          "value": "$APP_BITCOIN_NETWORK"
+        },
+        {
+          "name": "BITCOIN_IP",
+          "value": "$APP_BITCOIN_NODE_IP"
+        },
+        {
+          "name": "BITCOIN_RPC_PORT",
+          "value": "$APP_BITCOIN_RPC_PORT"
+        },
+        {
+          "name": "BITCOIN_RPC_USER",
+          "value": "$APP_BITCOIN_RPC_USER"
+        },
+        {
+          "name": "BITCOIN_RPC_PASS",
+          "value": "$APP_BITCOIN_RPC_PASS"
+        },
+        {
+          "name": "LND_IP",
+          "value": "$APP_LIGHTNING_NODE_IP"
+        },
+        {
+          "name": "LND_GRPC_PORT",
+          "value": "$APP_LIGHTNING_NODE_GRPC_PORT"
+        },
+        {
+          "name": "ELECTRUM_IP",
+          "value": "$APP_ELECTRS_NODE_IP"
+        },
+        {
+          "name": "ELECTRUM_PORT",
+          "value": "$APP_ELECTRS_NODE_PORT"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "node-red"
+      }
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "nodered/node-red:4.1.4"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "node-red",
+          "hostname": "node-red",
+          "image": "nodered/node-red:4.1.4",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/data",
+              "readonly": false
+            },
+            {
+              "host": "",
+              "container": "/lnd",
+              "readonly": true
+            }
+          ],
+          "environment": [
+            {
+              "name": "PORT",
+              "value": "1880"
+            },
+            {
+              "name": "BITCOIN_NETWORK",
+              "value": "$APP_BITCOIN_NETWORK"
+            },
+            {
+              "name": "BITCOIN_IP",
+              "value": "$APP_BITCOIN_NODE_IP"
+            },
+            {
+              "name": "BITCOIN_RPC_PORT",
+              "value": "$APP_BITCOIN_RPC_PORT"
+            },
+            {
+              "name": "BITCOIN_RPC_USER",
+              "value": "$APP_BITCOIN_RPC_USER"
+            },
+            {
+              "name": "BITCOIN_RPC_PASS",
+              "value": "$APP_BITCOIN_RPC_PASS"
+            },
+            {
+              "name": "LND_IP",
+              "value": "$APP_LIGHTNING_NODE_IP"
+            },
+            {
+              "name": "LND_GRPC_PORT",
+              "value": "$APP_LIGHTNING_NODE_GRPC_PORT"
+            },
+            {
+              "name": "ELECTRUM_IP",
+              "value": "$APP_ELECTRS_NODE_IP"
+            },
+            {
+              "name": "ELECTRUM_PORT",
+              "value": "$APP_ELECTRS_NODE_PORT"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "node-red"
+          }
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "node-red"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "node-red"
+      },
+      {
+        "action": "docker_rm",
+        "container": "node-red"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:sitemap",
+    "gradient": "from-red-500 to-red-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 1880,
+      "path": "",
+      "title": "Node-RED (Bitcoin)"
+    },
+    "i18n": {
+      "en": {
+        "description": "Wire together the Internet of Things"
+      },
+      "fr": {
+        "description": "Outil de programmation visuelle pour l'IoT"
+      }
+    }
+  }
+}

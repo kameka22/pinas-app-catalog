@@ -1,0 +1,133 @@
+{
+  "id": "vaultwarden",
+  "name": "Vaultwarden",
+  "version": "1.34.3",
+  "description": {
+    "en": "Unofficial Bitwarden® compatible server",
+    "fr": "Gestionnaire de mots de passe compatible Bitwarden"
+  },
+  "author": "Daniel García",
+  "license": null,
+  "website": "https://github.com/dani-garcia",
+  "icon": "mdi:shield-key",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "vaultwarden/server:1.34.3",
+    "container": {
+      "name": "vaultwarden",
+      "hostname": "vaultwarden",
+      "image": "vaultwarden/server:1.34.3",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/data",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "ROCKET_PORT",
+          "value": "8089"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "vaultwarden"
+      },
+      "user": "1000:1000"
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "vaultwarden/server:1.34.3"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "vaultwarden",
+          "hostname": "vaultwarden",
+          "image": "vaultwarden/server:1.34.3",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/data",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "ROCKET_PORT",
+              "value": "8089"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "vaultwarden"
+          },
+          "user": "1000:1000"
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "vaultwarden"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "vaultwarden"
+      },
+      {
+        "action": "docker_rm",
+        "container": "vaultwarden"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:shield-key",
+    "gradient": "from-blue-600 to-indigo-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8089,
+      "path": "",
+      "title": "Vaultwarden"
+    },
+    "i18n": {
+      "en": {
+        "description": "Unofficial Bitwarden® compatible server"
+      },
+      "fr": {
+        "description": "Gestionnaire de mots de passe compatible Bitwarden"
+      }
+    }
+  }
+}

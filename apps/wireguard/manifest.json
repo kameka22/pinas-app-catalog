@@ -1,0 +1,151 @@
+{
+  "id": "wireguard",
+  "name": "WireGuard",
+  "version": "14",
+  "description": {
+    "en": "Run your own free and unlimited WireGuard VPN",
+    "fr": "VPN rapide et moderne"
+  },
+  "author": "Emile Nijssen",
+  "license": null,
+  "website": "https://github.com/wg-easy/wg-easy",
+  "icon": "mdi:vpn",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "ghcr.io/wg-easy/wg-easy:14",
+    "container": {
+      "name": "wireguard",
+      "hostname": "wireguard",
+      "image": "ghcr.io/wg-easy/wg-easy:14",
+      "restart": "on-failure",
+      "ports": [
+        {
+          "host": 51820,
+          "container": 51820,
+          "protocol": "udp"
+        }
+      ],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data/wireguard",
+          "container": "/etc/wireguard",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "WG_HOST",
+          "value": "${DEVICE_DOMAIN_NAME}"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "wireguard"
+      },
+      "cap_add": [
+        "NET_ADMIN",
+        "SYS_MODULE"
+      ]
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/wireguard"
+      },
+      {
+        "action": "docker_pull",
+        "image": "ghcr.io/wg-easy/wg-easy:14"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "wireguard",
+          "hostname": "wireguard",
+          "image": "ghcr.io/wg-easy/wg-easy:14",
+          "restart": "on-failure",
+          "ports": [
+            {
+              "host": 51820,
+              "container": 51820,
+              "protocol": "udp"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data/wireguard",
+              "container": "/etc/wireguard",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "WG_HOST",
+              "value": "${DEVICE_DOMAIN_NAME}"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "wireguard"
+          },
+          "cap_add": [
+            "NET_ADMIN",
+            "SYS_MODULE"
+          ]
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "wireguard"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "wireguard"
+      },
+      {
+        "action": "docker_rm",
+        "container": "wireguard"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:vpn",
+    "gradient": "from-red-500 to-pink-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 51821,
+      "path": "",
+      "title": "WireGuard"
+    },
+    "i18n": {
+      "en": {
+        "description": "Run your own free and unlimited WireGuard VPN"
+      },
+      "fr": {
+        "description": "VPN rapide et moderne"
+      }
+    }
+  }
+}

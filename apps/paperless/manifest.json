@@ -1,0 +1,96 @@
+{
+  "id": "paperless",
+  "name": "Paperless-ngx",
+  "version": "2.20.6",
+  "description": {
+    "en": "Transform your physical documents into a searchable online archive",
+    "fr": "Système de gestion de documents dématérialisés"
+  },
+  "author": "Paperless-ngx Community",
+  "license": null,
+  "website": "https://docs.paperless-ngx.com/",
+  "icon": "mdi:file-document-multiple",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "docker.io/library/redis:7",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/data"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/media"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/pgdata"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/redisdata"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/paperless/consume"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/paperless/export"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  broker:\n    image: docker.io/library/redis:7\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/redisdata:/data\n  db:\n    image: docker.io/library/postgres:16\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/pgdata:/var/lib/postgresql/data\n    environment:\n      POSTGRES_DB: paperless\n      POSTGRES_USER: paperless\n      POSTGRES_PASSWORD: paperless\n  webserver:\n    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.6\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/data:/usr/src/paperless/data\n    - ${APP_DATA_DIR}/data/media:/usr/src/paperless/media\n    - ${DATA_DIR}/storage/paperless/export:/usr/src/paperless/export\n    - ${DATA_DIR}/storage/paperless/consume:/usr/src/paperless/consume\n    environment:\n      PAPERLESS_REDIS: redis://paperless_broker_1:6379\n      PAPERLESS_DBHOST: paperless_db_1\n      PAPERLESS_TIKA_ENABLED: '1'\n      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless_gotenberg_1:3000\n      PAPERLESS_TIKA_ENDPOINT: http://paperless_tika_1:9998\n      PAPERLESS_ADMIN_USER: admin\n      PAPERLESS_ADMIN_PASSWORD: $APP_PASSWORD\n    depends_on:\n    - db\n    - broker\n    - gotenberg\n    - tika\n  gotenberg:\n    image: docker.io/gotenberg/gotenberg:7.10\n    restart: on-failure\n    command:\n    - gotenberg\n    - --chromium-disable-javascript=true\n    - --chromium-allow-list=file:///tmp/.*\n  tika:\n    image: apache/tika:3.2.3.0\n    restart: on-failure\n",
+        "project_name": "paperless"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "paperless"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:file-document-multiple",
+    "gradient": "from-green-600 to-teal-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 2349,
+      "path": "",
+      "title": "Paperless-ngx"
+    },
+    "i18n": {
+      "en": {
+        "description": "Transform your physical documents into a searchable online archive"
+      },
+      "fr": {
+        "description": "Système de gestion de documents dématérialisés"
+      }
+    }
+  }
+}

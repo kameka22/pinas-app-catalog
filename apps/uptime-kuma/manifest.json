@@ -1,0 +1,121 @@
+{
+  "id": "uptime-kuma",
+  "name": "Uptime Kuma",
+  "version": "2.0.2-auth-proxy-patch",
+  "description": {
+    "en": "Self-hosted uptime monitoring tool",
+    "fr": "Surveillance de disponibilité des services"
+  },
+  "author": "Louis Lam",
+  "license": null,
+  "website": "https://uptime.kuma.pet",
+  "icon": "mdi:monitor-dashboard",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "louislam/uptime-kuma:2.0.2",
+    "container": {
+      "name": "uptime-kuma",
+      "hostname": "uptime-kuma",
+      "image": "louislam/uptime-kuma:2.0.2",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data/uptime-kuma",
+          "container": "/app/data",
+          "readonly": false
+        }
+      ],
+      "environment": [],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "uptime-kuma"
+      }
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/uptime-kuma"
+      },
+      {
+        "action": "docker_pull",
+        "image": "louislam/uptime-kuma:2.0.2"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "uptime-kuma",
+          "hostname": "uptime-kuma",
+          "image": "louislam/uptime-kuma:2.0.2",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data/uptime-kuma",
+              "container": "/app/data",
+              "readonly": false
+            }
+          ],
+          "environment": [],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "uptime-kuma"
+          }
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "uptime-kuma"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "uptime-kuma"
+      },
+      {
+        "action": "docker_rm",
+        "container": "uptime-kuma"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:monitor-dashboard",
+    "gradient": "from-green-500 to-lime-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8385,
+      "path": "",
+      "title": "Uptime Kuma"
+    },
+    "i18n": {
+      "en": {
+        "description": "Self-hosted uptime monitoring tool"
+      },
+      "fr": {
+        "description": "Surveillance de disponibilité des services"
+      }
+    }
+  }
+}

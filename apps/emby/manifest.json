@@ -1,15 +1,15 @@
 {
-  "id": "plex",
-  "name": "Plex",
-  "version": "1.43.0.10467",
+  "id": "emby",
+  "name": "Emby",
+  "version": "4.9.3.0",
   "description": {
-    "en": "Stream Movies & TV Shows",
-    "fr": "Serveur multimédia pour diffuser vos films, séries et musique"
+    "en": "A personal media server",
+    "fr": "Serveur multimédia personnel"
   },
-  "author": "Plex",
+  "author": "Emby LLC",
   "license": null,
-  "website": "https://www.plex.tv/",
-  "icon": "mdi:plex",
+  "website": "https://emby.media/",
+  "icon": "mdi:play-network",
   "requirements": {
     "min_ram": 256,
     "min_disk": 200,
@@ -23,22 +23,17 @@
   },
   "install": {
     "type": "docker",
-    "image": "linuxserver/plex:1.43.0",
+    "image": "linuxserver/emby:version-4.9.3.0",
     "container": {
-      "name": "plex",
-      "hostname": "plex",
-      "image": "linuxserver/plex:1.43.0",
+      "name": "emby",
+      "hostname": "emby",
+      "image": "linuxserver/emby:version-4.9.3.0",
       "restart": "on-failure",
       "ports": [],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data/config",
           "container": "/config",
-          "readonly": false
-        },
-        {
-          "host": "${APP_DATA_DIR}/data/transcode",
-          "container": "/transcode",
           "readonly": false
         },
         {
@@ -49,23 +44,22 @@
       ],
       "environment": [
         {
-          "name": "PUID",
+          "name": "TZ",
+          "value": "Europe/Berlin"
+        },
+        {
+          "name": "UID",
           "value": "1000"
         },
         {
-          "name": "PGID",
+          "name": "GID",
           "value": "1000"
-        },
-        {
-          "name": "VERSION",
-          "value": "docker"
         }
       ],
       "labels": {
         "com.pinas.managed": "true",
-        "com.pinas.app": "plex"
-      },
-      "network": "host"
+        "com.pinas.app": "emby"
+      }
     },
     "steps": [
       {
@@ -74,33 +68,24 @@
       },
       {
         "action": "mkdir",
-        "path": "${APP_DATA_DIR}/data/transcode"
-      },
-      {
-        "action": "mkdir",
         "path": "${DATA_DIR}/storage/downloads"
       },
       {
         "action": "docker_pull",
-        "image": "linuxserver/plex:1.43.0"
+        "image": "linuxserver/emby:version-4.9.3.0"
       },
       {
         "action": "docker_create",
         "config": {
-          "name": "plex",
-          "hostname": "plex",
-          "image": "linuxserver/plex:1.43.0",
+          "name": "emby",
+          "hostname": "emby",
+          "image": "linuxserver/emby:version-4.9.3.0",
           "restart": "on-failure",
           "ports": [],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data/config",
               "container": "/config",
-              "readonly": false
-            },
-            {
-              "host": "${APP_DATA_DIR}/data/transcode",
-              "container": "/transcode",
               "readonly": false
             },
             {
@@ -111,28 +96,27 @@
           ],
           "environment": [
             {
-              "name": "PUID",
+              "name": "TZ",
+              "value": "Europe/Berlin"
+            },
+            {
+              "name": "UID",
               "value": "1000"
             },
             {
-              "name": "PGID",
+              "name": "GID",
               "value": "1000"
-            },
-            {
-              "name": "VERSION",
-              "value": "docker"
             }
           ],
           "labels": {
             "com.pinas.managed": "true",
-            "com.pinas.app": "plex"
-          },
-          "network": "host"
+            "com.pinas.app": "emby"
+          }
         }
       },
       {
         "action": "docker_start",
-        "container": "plex"
+        "container": "emby"
       }
     ]
   },
@@ -140,11 +124,11 @@
     "steps": [
       {
         "action": "docker_stop",
-        "container": "plex"
+        "container": "emby"
       },
       {
         "action": "docker_rm",
-        "container": "plex"
+        "container": "emby"
       }
     ]
   },
@@ -152,8 +136,8 @@
   "config": {},
   "frontend": {
     "component": "IframeApp",
-    "icon": "mdi:plex",
-    "gradient": "from-amber-500 to-yellow-600",
+    "icon": "mdi:play-network",
+    "gradient": "from-green-500 to-emerald-600",
     "window": {
       "width": 1200,
       "height": 800,
@@ -161,16 +145,16 @@
       "min_height": 600
     },
     "config": {
-      "port": 32400,
-      "path": "/web",
-      "title": "Plex"
+      "port": 8097,
+      "path": "",
+      "title": "Emby"
     },
     "i18n": {
       "en": {
-        "description": "Stream Movies & TV Shows"
+        "description": "A personal media server"
       },
       "fr": {
-        "description": "Serveur multimédia pour diffuser vos films, séries et musique"
+        "description": "Serveur multimédia personnel"
       }
     }
   }

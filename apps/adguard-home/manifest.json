@@ -1,0 +1,161 @@
+{
+  "id": "adguard-home",
+  "name": "AdGuard Home",
+  "version": "0.107.71",
+  "description": {
+    "en": "Network-wide software for blocking ads and tracking",
+    "fr": "Serveur DNS anti-publicités et anti-trackers"
+  },
+  "author": "Adguard",
+  "license": null,
+  "website": "https://adguard.com/fr/adguard-home/overview.html",
+  "icon": "mdi:shield-half-full",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "adguard/adguardhome:v0.107.71",
+    "container": {
+      "name": "adguard-home",
+      "hostname": "adguard-home",
+      "image": "adguard/adguardhome:v0.107.71",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data/work",
+          "container": "/opt/adguardhome/work",
+          "readonly": false
+        },
+        {
+          "host": "${APP_DATA_DIR}/data/conf",
+          "container": "/opt/adguardhome/conf",
+          "readonly": false
+        }
+      ],
+      "environment": [],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "adguard-home"
+      },
+      "network": "host",
+      "cap_add": [
+        "NET_ADMIN"
+      ],
+      "command": [
+        "--no-check-update",
+        "-c",
+        "/opt/adguardhome/conf/AdGuardHome.yaml",
+        "-w",
+        "/opt/adguardhome/work",
+        "--web-addr",
+        "0.0.0.0:8095"
+      ]
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/work"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/conf"
+      },
+      {
+        "action": "docker_pull",
+        "image": "adguard/adguardhome:v0.107.71"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "adguard-home",
+          "hostname": "adguard-home",
+          "image": "adguard/adguardhome:v0.107.71",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data/work",
+              "container": "/opt/adguardhome/work",
+              "readonly": false
+            },
+            {
+              "host": "${APP_DATA_DIR}/data/conf",
+              "container": "/opt/adguardhome/conf",
+              "readonly": false
+            }
+          ],
+          "environment": [],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "adguard-home"
+          },
+          "network": "host",
+          "cap_add": [
+            "NET_ADMIN"
+          ],
+          "command": [
+            "--no-check-update",
+            "-c",
+            "/opt/adguardhome/conf/AdGuardHome.yaml",
+            "-w",
+            "/opt/adguardhome/work",
+            "--web-addr",
+            "0.0.0.0:8095"
+          ]
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "adguard-home"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "adguard-home"
+      },
+      {
+        "action": "docker_rm",
+        "container": "adguard-home"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:shield-half-full",
+    "gradient": "from-green-600 to-teal-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8095,
+      "path": "",
+      "title": "AdGuard Home"
+    },
+    "i18n": {
+      "en": {
+        "description": "Network-wide software for blocking ads and tracking"
+      },
+      "fr": {
+        "description": "Serveur DNS anti-publicités et anti-trackers"
+      }
+    }
+  }
+}

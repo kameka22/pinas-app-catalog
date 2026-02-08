@@ -1,0 +1,159 @@
+{
+  "id": "home-assistant",
+  "name": "Home Assistant",
+  "version": "2026.2.0",
+  "description": {
+    "en": "Home automation that puts local control & privacy first",
+    "fr": "Plateforme domotique open source"
+  },
+  "author": "Home Assistant",
+  "license": null,
+  "website": "https://home-assistant.io",
+  "icon": "mdi:home-assistant",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "homeassistant/home-assistant:2026.2.0",
+    "container": {
+      "name": "home-assistant",
+      "hostname": "home-assistant",
+      "image": "homeassistant/home-assistant:2026.2.0",
+      "restart": "unless-stopped",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/config",
+          "readonly": false
+        },
+        {
+          "host": "${DATA_DIR}/storage/downloads",
+          "container": "/media",
+          "readonly": false
+        },
+        {
+          "host": "/dev",
+          "container": "/dev",
+          "readonly": false
+        },
+        {
+          "host": "/run/dbus",
+          "container": "/run/dbus",
+          "readonly": true
+        }
+      ],
+      "environment": [],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "home-assistant"
+      },
+      "network": "host",
+      "privileged": true
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/downloads"
+      },
+      {
+        "action": "docker_pull",
+        "image": "homeassistant/home-assistant:2026.2.0"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "home-assistant",
+          "hostname": "home-assistant",
+          "image": "homeassistant/home-assistant:2026.2.0",
+          "restart": "unless-stopped",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/config",
+              "readonly": false
+            },
+            {
+              "host": "${DATA_DIR}/storage/downloads",
+              "container": "/media",
+              "readonly": false
+            },
+            {
+              "host": "/dev",
+              "container": "/dev",
+              "readonly": false
+            },
+            {
+              "host": "/run/dbus",
+              "container": "/run/dbus",
+              "readonly": true
+            }
+          ],
+          "environment": [],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "home-assistant"
+          },
+          "network": "host",
+          "privileged": true
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "home-assistant"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "home-assistant"
+      },
+      {
+        "action": "docker_rm",
+        "container": "home-assistant"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:home-assistant",
+    "gradient": "from-sky-500 to-blue-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8123,
+      "path": "",
+      "title": "Home Assistant"
+    },
+    "i18n": {
+      "en": {
+        "description": "Home automation that puts local control & privacy first"
+      },
+      "fr": {
+        "description": "Plateforme domotique open source"
+      }
+    }
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": "file-browser",
+  "name": "File Browser",
+  "version": "2.57.0",
+  "description": {
+    "en": "Browse and manage the files you download on your Umbrel",
+    "fr": "Gestionnaire de fichiers web avec interface moderne"
+  },
+  "author": "File Browser",
+  "license": null,
+  "website": "https://filebrowser.org/",
+  "icon": "mdi:folder",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "filebrowser/filebrowser:v2.57.0",
+    "container": {
+      "name": "file-browser",
+      "hostname": "file-browser",
+      "image": "filebrowser/filebrowser:v2.57.0",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/database/",
+          "readonly": false
+        },
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/config/",
+          "readonly": false
+        },
+        {
+          "host": "${DATA_DIR}/storage",
+          "container": "/data",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "FB_PORT",
+          "value": "80"
+        },
+        {
+          "name": "FB_DATABASE",
+          "value": "/database/filebrowser.db"
+        },
+        {
+          "name": "FB_ROOT",
+          "value": "/data"
+        },
+        {
+          "name": "FB_NOAUTH",
+          "value": "true"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "file-browser"
+      },
+      "user": "1000:1000"
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage"
+      },
+      {
+        "action": "docker_pull",
+        "image": "filebrowser/filebrowser:v2.57.0"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "file-browser",
+          "hostname": "file-browser",
+          "image": "filebrowser/filebrowser:v2.57.0",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/database/",
+              "readonly": false
+            },
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/config/",
+              "readonly": false
+            },
+            {
+              "host": "${DATA_DIR}/storage",
+              "container": "/data",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "FB_PORT",
+              "value": "80"
+            },
+            {
+              "name": "FB_DATABASE",
+              "value": "/database/filebrowser.db"
+            },
+            {
+              "name": "FB_ROOT",
+              "value": "/data"
+            },
+            {
+              "name": "FB_NOAUTH",
+              "value": "true"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "file-browser"
+          },
+          "user": "1000:1000"
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "file-browser"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "file-browser"
+      },
+      {
+        "action": "docker_rm",
+        "container": "file-browser"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:folder",
+    "gradient": "from-teal-500 to-emerald-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 7421,
+      "path": "/files/",
+      "title": "File Browser"
+    },
+    "i18n": {
+      "en": {
+        "description": "Browse and manage the files you download on your Umbrel"
+      },
+      "fr": {
+        "description": "Gestionnaire de fichiers web avec interface moderne"
+      }
+    }
+  }
+}

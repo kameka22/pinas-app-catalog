@@ -1,0 +1,81 @@
+{
+  "id": "lidarr",
+  "name": "Lidarr",
+  "version": "3.1.0.4875",
+  "description": {
+    "en": "Looks and smells like Sonarr but made for music",
+    "fr": "Gestionnaire automatique de musique"
+  },
+  "author": "Lidarr",
+  "license": null,
+  "website": "https://lidarr.audio/",
+  "icon": "mdi:music",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker",
+      "transmission"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "linuxserver/lidarr:3.1.0",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/config"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/downloads"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  server:\n    image: linuxserver/lidarr:3.1.0\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n    - PUID=1000\n    - PGID=1000\n  mac:\n    image: getumbrel/media-app-configurator:v1.3.0\n    restart: on-failure\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n      APP_ID: lidarr\n      APP_URL: http://lidarr_server_1:8686\n      TRANSMISSION_HOST: transmission_server_1\n      TRANSMISSION_PORT: '9091'\n      ROOT_FOLDER: /downloads/music\n      QBITTORRENT_INSTALLED: ${APP_LIDARR_QBITTORRENT_INSTALLED:-\"false\"}\n      QBITTORRENT_HOST: qbittorrent_server_1\n      QBITTORRENT_PORT: '8080'\n      SABNZBD_INSTALLED: ${APP_LIDARR_SABNZBD_INSTALLED:-\"false\"}\n      SABNZBD_HOST: sabnzbd_web_1\n      SABNZBD_PORT: '8080'\n      SABNZBD_API_KEY: ${APP_LIDARR_SABNZBD_API_KEY:-\"\"}\n    user: 1000:1000\n",
+        "project_name": "lidarr"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "lidarr"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:music",
+    "gradient": "from-green-500 to-lime-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8686,
+      "path": "",
+      "title": "Lidarr"
+    },
+    "i18n": {
+      "en": {
+        "description": "Looks and smells like Sonarr but made for music"
+      },
+      "fr": {
+        "description": "Gestionnaire automatique de musique"
+      }
+    }
+  }
+}

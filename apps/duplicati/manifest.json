@@ -1,0 +1,171 @@
+{
+  "id": "duplicati",
+  "name": "Duplicati",
+  "version": "v2.2.0.3_stable_2026-01-06",
+  "description": {
+    "en": "Store securely encrypted backups in the cloud",
+    "fr": "Sauvegarde chiffrée dans le cloud"
+  },
+  "author": "Duplicati",
+  "license": null,
+  "website": "https://duplicati.com/",
+  "icon": "mdi:backup-restore",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "duplicati/duplicati:2.2.0.3",
+    "container": {
+      "name": "duplicati",
+      "hostname": "duplicati",
+      "image": "duplicati/duplicati:2.2.0.3",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/data",
+          "readonly": false
+        },
+        {
+          "host": "${DATA_DIR}/storage",
+          "container": "/umbrel",
+          "readonly": false
+        }
+      ],
+      "environment": [
+        {
+          "name": "DUPLICATI__WEBSERVICE_PORT",
+          "value": "8200"
+        },
+        {
+          "name": "DUPLICATI__WEBSERVICE_INTERFACE",
+          "value": "any"
+        },
+        {
+          "name": "DUPLICATI__WEBSERVICE_PASSWORD",
+          "value": "${APP_PASSWORD}"
+        },
+        {
+          "name": "DUPLICATI__WEBSERVICE_ALLOWED_HOSTNAMES",
+          "value": "*"
+        }
+      ],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "duplicati"
+      },
+      "user": "1000:1000"
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage"
+      },
+      {
+        "action": "docker_pull",
+        "image": "duplicati/duplicati:2.2.0.3"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "duplicati",
+          "hostname": "duplicati",
+          "image": "duplicati/duplicati:2.2.0.3",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/data",
+              "readonly": false
+            },
+            {
+              "host": "${DATA_DIR}/storage",
+              "container": "/umbrel",
+              "readonly": false
+            }
+          ],
+          "environment": [
+            {
+              "name": "DUPLICATI__WEBSERVICE_PORT",
+              "value": "8200"
+            },
+            {
+              "name": "DUPLICATI__WEBSERVICE_INTERFACE",
+              "value": "any"
+            },
+            {
+              "name": "DUPLICATI__WEBSERVICE_PASSWORD",
+              "value": "${APP_PASSWORD}"
+            },
+            {
+              "name": "DUPLICATI__WEBSERVICE_ALLOWED_HOSTNAMES",
+              "value": "*"
+            }
+          ],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "duplicati"
+          },
+          "user": "1000:1000"
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "duplicati"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "duplicati"
+      },
+      {
+        "action": "docker_rm",
+        "container": "duplicati"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:backup-restore",
+    "gradient": "from-blue-500 to-indigo-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 38476,
+      "path": "",
+      "title": "Duplicati"
+    },
+    "i18n": {
+      "en": {
+        "description": "Store securely encrypted backups in the cloud"
+      },
+      "fr": {
+        "description": "Sauvegarde chiffrée dans le cloud"
+      }
+    }
+  }
+}

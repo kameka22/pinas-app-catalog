@@ -1,0 +1,80 @@
+{
+  "id": "transmission",
+  "name": "Transmission",
+  "version": "4.1.0",
+  "description": {
+    "en": "A fast, easy and free BitTorrent client",
+    "fr": "Client BitTorrent léger et efficace"
+  },
+  "author": "Transmission",
+  "license": null,
+  "website": "https://transmissionbt.com/",
+  "icon": "mdi:download",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "linuxserver/transmission:4.1.0",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/config"
+      },
+      {
+        "action": "mkdir",
+        "path": "${DATA_DIR}/storage/downloads"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  server:\n    image: linuxserver/transmission:4.1.0\n    restart: on-failure\n    ports:\n    - 51413:51413\n    - 51413:51413/udp\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n    - PUID=1000\n    - PGID=1000\n  widget-server:\n    image: getumbrel/umbrel-transmission-widget-server:v1.0.0\n    restart: on-failure\n    environment:\n    - TRANSMISSION_URL=http://transmission_server_1\n    - TRANSMISSION_PORT=9091\n",
+        "project_name": "transmission"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "transmission"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:download",
+    "gradient": "from-red-600 to-red-800",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 9091,
+      "path": "/transmission/web/",
+      "title": "Transmission"
+    },
+    "i18n": {
+      "en": {
+        "description": "A fast, easy and free BitTorrent client"
+      },
+      "fr": {
+        "description": "Client BitTorrent léger et efficace"
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "id": "nextcloud",
+  "name": "Nextcloud",
+  "version": "32.0.5",
+  "description": {
+    "en": "Productivity platform that keeps you in control",
+    "fr": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
+  },
+  "author": "Nextcloud GmbH",
+  "license": "AGPL-3.0",
+  "website": "https://nextcloud.com",
+  "icon": "mdi:cloud",
+  "requirements": {
+    "min_ram": 512,
+    "min_disk": 500,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "nextcloud:32.0.5-apache",
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/db"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/nextcloud"
+      },
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data/redis"
+      },
+      {
+        "action": "compose_up",
+        "dest": "${APP_DATA_DIR}/docker-compose.yml",
+        "content": "services:\n  db:\n    image: mariadb:10.6\n    restart: unless-stopped\n    volumes:\n    - ${APP_DATA_DIR}/data/db:/var/lib/mysql\n    environment:\n      MYSQL_ROOT_PASSWORD: ${APP_PASSWORD}\n      MYSQL_PASSWORD: ${APP_PASSWORD}\n      MYSQL_DATABASE: nextcloud\n      MYSQL_USER: nextcloud\n      MARIADB_AUTO_UPGRADE: '1'\n    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW\n    healthcheck:\n      test: [\"CMD\", \"healthcheck.sh\", \"--connect\", \"--innodb_initialized\"]\n      start_period: 10s\n      interval: 10s\n      timeout: 5s\n      retries: 3\n  redis:\n    image: redis:7-alpine\n    restart: unless-stopped\n    volumes:\n    - ${APP_DATA_DIR}/data/redis:/data\n  web:\n    image: nextcloud:32.0.5-apache\n    restart: unless-stopped\n    ports:\n    - 8081:80\n    volumes:\n    - ${APP_DATA_DIR}/data/nextcloud:/var/www/html\n    environment:\n      MYSQL_HOST: db\n      REDIS_HOST: redis\n      MYSQL_PASSWORD: ${APP_PASSWORD}\n      MYSQL_DATABASE: nextcloud\n      MYSQL_USER: nextcloud\n      NEXTCLOUD_ADMIN_USER: admin\n      NEXTCLOUD_ADMIN_PASSWORD: ${APP_PASSWORD}\n      NEXTCLOUD_TRUSTED_DOMAINS: ${DEVICE_HOSTNAME}\n      PHP_UPLOAD_LIMIT: 1024G\n    depends_on:\n      db:\n        condition: service_healthy\n      redis:\n        condition: service_started\n  cron:\n    image: nextcloud:32.0.5-apache\n    restart: unless-stopped\n    volumes:\n    - ${APP_DATA_DIR}/data/nextcloud:/var/www/html\n    depends_on:\n      db:\n        condition: service_healthy\n      redis:\n        condition: service_started\n    entrypoint: /cron.sh\n",
+        "project_name": "nextcloud"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "compose_down",
+        "compose_file": "${APP_DATA_DIR}/docker-compose.yml",
+        "remove_volumes": false,
+        "project_name": "nextcloud"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:cloud",
+    "gradient": "from-blue-500 to-blue-700",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 8081,
+      "path": "/",
+      "title": "Nextcloud"
+    },
+    "i18n": {
+      "en": {
+        "description": "Productivity platform that keeps you in control"
+      },
+      "fr": {
+        "description": "Plateforme de productivité auto-hébergée et synchronisation de fichiers"
+      }
+    }
+  }
+}

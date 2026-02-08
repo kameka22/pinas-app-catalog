@@ -1,0 +1,123 @@
+{
+  "id": "grafana",
+  "name": "Grafana",
+  "version": "12.3.2",
+  "description": {
+    "en": "The open-source platform for monitoring and observability",
+    "fr": "Plateforme de visualisation et monitoring"
+  },
+  "author": "Grafana Labs",
+  "license": null,
+  "website": "https://grafana.com",
+  "icon": "mdi:chart-line",
+  "requirements": {
+    "min_ram": 256,
+    "min_disk": 200,
+    "arch": [
+      "aarch64",
+      "x86_64"
+    ],
+    "dependencies": [
+      "docker"
+    ]
+  },
+  "install": {
+    "type": "docker",
+    "image": "grafana/grafana:12.3.2",
+    "container": {
+      "name": "grafana",
+      "hostname": "grafana",
+      "image": "grafana/grafana:12.3.2",
+      "restart": "on-failure",
+      "ports": [],
+      "volumes": [
+        {
+          "host": "${APP_DATA_DIR}/data",
+          "container": "/var/lib/grafana",
+          "readonly": false
+        }
+      ],
+      "environment": [],
+      "labels": {
+        "com.pinas.managed": "true",
+        "com.pinas.app": "grafana"
+      },
+      "user": "1000:1000"
+    },
+    "steps": [
+      {
+        "action": "mkdir",
+        "path": "${APP_DATA_DIR}/data"
+      },
+      {
+        "action": "docker_pull",
+        "image": "grafana/grafana:12.3.2"
+      },
+      {
+        "action": "docker_create",
+        "config": {
+          "name": "grafana",
+          "hostname": "grafana",
+          "image": "grafana/grafana:12.3.2",
+          "restart": "on-failure",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "${APP_DATA_DIR}/data",
+              "container": "/var/lib/grafana",
+              "readonly": false
+            }
+          ],
+          "environment": [],
+          "labels": {
+            "com.pinas.managed": "true",
+            "com.pinas.app": "grafana"
+          },
+          "user": "1000:1000"
+        }
+      },
+      {
+        "action": "docker_start",
+        "container": "grafana"
+      }
+    ]
+  },
+  "uninstall": {
+    "steps": [
+      {
+        "action": "docker_stop",
+        "container": "grafana"
+      },
+      {
+        "action": "docker_rm",
+        "container": "grafana"
+      }
+    ]
+  },
+  "files": {},
+  "config": {},
+  "frontend": {
+    "component": "IframeApp",
+    "icon": "mdi:chart-line",
+    "gradient": "from-orange-500 to-amber-600",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "min_width": 900,
+      "min_height": 600
+    },
+    "config": {
+      "port": 3030,
+      "path": "",
+      "title": "Grafana"
+    },
+    "i18n": {
+      "en": {
+        "description": "The open-source platform for monitoring and observability"
+      },
+      "fr": {
+        "description": "Plateforme de visualisation et monitoring"
+      }
+    }
+  }
+}

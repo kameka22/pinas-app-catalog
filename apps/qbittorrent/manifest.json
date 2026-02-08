@@ -1,15 +1,15 @@
 {
-  "id": "plex",
-  "name": "Plex",
-  "version": "1.43.0.10467",
+  "id": "qbittorrent",
+  "name": "qBittorrent",
+  "version": "5.1.2-auth-proxy-patch",
   "description": {
-    "en": "Stream Movies & TV Shows",
-    "fr": "Serveur multimédia pour diffuser vos films, séries et musique"
+    "en": "Free and reliable P2P Bittorrent client",
+    "fr": "Client BitTorrent puissant avec interface web"
   },
-  "author": "Plex",
+  "author": "qBittorrent",
   "license": null,
-  "website": "https://www.plex.tv/",
-  "icon": "mdi:plex",
+  "website": "https://qbittorrent.org/",
+  "icon": "mdi:download-circle",
   "requirements": {
     "min_ram": 256,
     "min_disk": 200,
@@ -23,11 +23,11 @@
   },
   "install": {
     "type": "docker",
-    "image": "linuxserver/plex:1.43.0",
+    "image": "ghcr.io/hotio/qbittorrent:release-5.1.2",
     "container": {
-      "name": "plex",
-      "hostname": "plex",
-      "image": "linuxserver/plex:1.43.0",
+      "name": "qbittorrent",
+      "hostname": "qbittorrent",
+      "image": "ghcr.io/hotio/qbittorrent:release-5.1.2",
       "restart": "on-failure",
       "ports": [],
       "volumes": [
@@ -37,13 +37,8 @@
           "readonly": false
         },
         {
-          "host": "${APP_DATA_DIR}/data/transcode",
-          "container": "/transcode",
-          "readonly": false
-        },
-        {
           "host": "${DATA_DIR}/storage/downloads",
-          "container": "/downloads",
+          "container": "/app/qBittorrent/downloads",
           "readonly": false
         }
       ],
@@ -55,17 +50,12 @@
         {
           "name": "PGID",
           "value": "1000"
-        },
-        {
-          "name": "VERSION",
-          "value": "docker"
         }
       ],
       "labels": {
         "com.pinas.managed": "true",
-        "com.pinas.app": "plex"
-      },
-      "network": "host"
+        "com.pinas.app": "qbittorrent"
+      }
     },
     "steps": [
       {
@@ -74,22 +64,18 @@
       },
       {
         "action": "mkdir",
-        "path": "${APP_DATA_DIR}/data/transcode"
-      },
-      {
-        "action": "mkdir",
         "path": "${DATA_DIR}/storage/downloads"
       },
       {
         "action": "docker_pull",
-        "image": "linuxserver/plex:1.43.0"
+        "image": "ghcr.io/hotio/qbittorrent:release-5.1.2"
       },
       {
         "action": "docker_create",
         "config": {
-          "name": "plex",
-          "hostname": "plex",
-          "image": "linuxserver/plex:1.43.0",
+          "name": "qbittorrent",
+          "hostname": "qbittorrent",
+          "image": "ghcr.io/hotio/qbittorrent:release-5.1.2",
           "restart": "on-failure",
           "ports": [],
           "volumes": [
@@ -99,13 +85,8 @@
               "readonly": false
             },
             {
-              "host": "${APP_DATA_DIR}/data/transcode",
-              "container": "/transcode",
-              "readonly": false
-            },
-            {
               "host": "${DATA_DIR}/storage/downloads",
-              "container": "/downloads",
+              "container": "/app/qBittorrent/downloads",
               "readonly": false
             }
           ],
@@ -117,22 +98,17 @@
             {
               "name": "PGID",
               "value": "1000"
-            },
-            {
-              "name": "VERSION",
-              "value": "docker"
             }
           ],
           "labels": {
             "com.pinas.managed": "true",
-            "com.pinas.app": "plex"
-          },
-          "network": "host"
+            "com.pinas.app": "qbittorrent"
+          }
         }
       },
       {
         "action": "docker_start",
-        "container": "plex"
+        "container": "qbittorrent"
       }
     ]
   },
@@ -140,11 +116,11 @@
     "steps": [
       {
         "action": "docker_stop",
-        "container": "plex"
+        "container": "qbittorrent"
       },
       {
         "action": "docker_rm",
-        "container": "plex"
+        "container": "qbittorrent"
       }
     ]
   },
@@ -152,8 +128,8 @@
   "config": {},
   "frontend": {
     "component": "IframeApp",
-    "icon": "mdi:plex",
-    "gradient": "from-amber-500 to-yellow-600",
+    "icon": "mdi:download-circle",
+    "gradient": "from-blue-600 to-blue-800",
     "window": {
       "width": 1200,
       "height": 800,
@@ -161,16 +137,16 @@
       "min_height": 600
     },
     "config": {
-      "port": 32400,
-      "path": "/web",
-      "title": "Plex"
+      "port": 8094,
+      "path": "",
+      "title": "qBittorrent"
     },
     "i18n": {
       "en": {
-        "description": "Stream Movies & TV Shows"
+        "description": "Free and reliable P2P Bittorrent client"
       },
       "fr": {
-        "description": "Serveur multimédia pour diffuser vos films, séries et musique"
+        "description": "Client BitTorrent puissant avec interface web"
       }
     }
   }
