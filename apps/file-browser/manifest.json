@@ -29,7 +29,13 @@
       "hostname": "file-browser",
       "image": "filebrowser/filebrowser:v2.57.0",
       "restart": "on-failure",
-      "ports": [],
+      "ports": [
+        {
+          "host": 7421,
+          "container": 80,
+          "protocol": "tcp"
+        }
+      ],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data",
@@ -95,7 +101,13 @@
           "hostname": "file-browser",
           "image": "filebrowser/filebrowser:v2.57.0",
           "restart": "on-failure",
-          "ports": [],
+          "ports": [
+        {
+          "host": 7421,
+          "container": 80,
+          "protocol": "tcp"
+        }
+      ],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data",

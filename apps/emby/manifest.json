@@ -29,7 +29,13 @@
       "hostname": "emby",
       "image": "linuxserver/emby:version-4.9.3.0",
       "restart": "on-failure",
-      "ports": [],
+      "ports": [
+        {
+          "host": 8097,
+          "container": 8096,
+          "protocol": "tcp"
+        }
+      ],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data/config",
@@ -81,7 +87,13 @@
           "hostname": "emby",
           "image": "linuxserver/emby:version-4.9.3.0",
           "restart": "on-failure",
-          "ports": [],
+          "ports": [
+        {
+          "host": 8097,
+          "container": 8096,
+          "protocol": "tcp"
+        }
+      ],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data/config",

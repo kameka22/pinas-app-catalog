@@ -32,7 +32,13 @@
       "hostname": "node-red",
       "image": "nodered/node-red:4.1.4",
       "restart": "on-failure",
-      "ports": [],
+      "ports": [
+        {
+          "host": 1880,
+          "container": 1880,
+          "protocol": "tcp"
+        }
+      ],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data",
@@ -108,7 +114,13 @@
           "hostname": "node-red",
           "image": "nodered/node-red:4.1.4",
           "restart": "on-failure",
-          "ports": [],
+          "ports": [
+        {
+          "host": 1880,
+          "container": 1880,
+          "protocol": "tcp"
+        }
+      ],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data",

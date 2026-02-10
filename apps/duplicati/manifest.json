@@ -29,7 +29,13 @@
       "hostname": "duplicati",
       "image": "duplicati/duplicati:2.2.0.3",
       "restart": "on-failure",
-      "ports": [],
+      "ports": [
+        {
+          "host": 38476,
+          "container": 8200,
+          "protocol": "tcp"
+        }
+      ],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data",
@@ -86,7 +92,13 @@
           "hostname": "duplicati",
           "image": "duplicati/duplicati:2.2.0.3",
           "restart": "on-failure",
-          "ports": [],
+          "ports": [
+        {
+          "host": 38476,
+          "container": 8200,
+          "protocol": "tcp"
+        }
+      ],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data",

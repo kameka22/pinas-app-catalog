@@ -29,7 +29,13 @@
       "hostname": "sabnzbd",
       "image": "linuxserver/sabnzbd:4.5.5",
       "restart": "on-failure",
-      "ports": [],
+      "ports": [
+        {
+          "host": 9876,
+          "container": 8080,
+          "protocol": "tcp"
+        }
+      ],
       "volumes": [
         {
           "host": "${APP_DATA_DIR}/data/config",
@@ -89,7 +95,13 @@
           "hostname": "sabnzbd",
           "image": "linuxserver/sabnzbd:4.5.5",
           "restart": "on-failure",
-          "ports": [],
+          "ports": [
+        {
+          "host": 9876,
+          "container": 8080,
+          "protocol": "tcp"
+        }
+      ],
           "volumes": [
             {
               "host": "${APP_DATA_DIR}/data/config",
