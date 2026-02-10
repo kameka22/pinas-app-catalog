@@ -36,8 +36,9 @@
         "dest": "${DATA_DIR}/apps/samba/etc/smb.conf"
       },
       {
-        "action": "exec",
-        "command": "ln -sf ${DATA_DIR}/apps/samba/etc/smb.conf /etc/samba/smb.conf || true"
+        "action": "symlink",
+        "src": "${DATA_DIR}/apps/samba/etc/smb.conf",
+        "dest": "/etc/samba/smb.conf"
       },
       {
         "action": "template",
@@ -45,16 +46,18 @@
         "dest": "/storage/.config/system.d/pinas-samba.service"
       },
       {
-        "action": "exec",
-        "command": "systemctl daemon-reload"
+        "action": "systemctl",
+        "operation": "daemon-reload"
       },
       {
-        "action": "exec",
-        "command": "systemctl enable pinas-samba.service"
+        "action": "systemctl",
+        "operation": "enable",
+        "service": "pinas-samba.service"
       },
       {
-        "action": "exec",
-        "command": "systemctl start pinas-samba.service"
+        "action": "systemctl",
+        "operation": "start",
+        "service": "pinas-samba.service"
       }
     ]
   },
@@ -62,20 +65,24 @@
   "uninstall": {
     "steps": [
       {
-        "action": "exec",
-        "command": "systemctl stop pinas-samba.service || true"
+        "action": "systemctl",
+        "operation": "stop",
+        "service": "pinas-samba.service",
+        "ignore_error": true
       },
       {
-        "action": "exec",
-        "command": "systemctl disable pinas-samba.service || true"
+        "action": "systemctl",
+        "operation": "disable",
+        "service": "pinas-samba.service",
+        "ignore_error": true
       },
       {
-        "action": "exec",
-        "command": "rm -f /storage/.config/system.d/pinas-samba.service"
+        "action": "delete",
+        "path": "/storage/.config/system.d/pinas-samba.service"
       },
       {
-        "action": "exec",
-        "command": "systemctl daemon-reload"
+        "action": "systemctl",
+        "operation": "daemon-reload"
       }
     ]
   },

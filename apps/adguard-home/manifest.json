@@ -7,7 +7,7 @@
     "fr": "Serveur DNS anti-publicités et anti-trackers"
   },
   "author": "Adguard",
-  "license": null,
+  "license": "GPL-3.0",
   "website": "https://adguard.com/fr/adguard-home/overview.html",
   "icon": "mdi:shield-half-full",
   "requirements": {
@@ -146,7 +146,7 @@
     },
     "config": {
       "port": 8095,
-      "path": "",
+      "path": "/",
       "title": "AdGuard Home"
     },
     "i18n": {

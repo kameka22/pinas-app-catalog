@@ -111,16 +111,18 @@
         "dest": "${DATA_DIR}/docker/daemon.json"
       },
       {
-        "action": "exec",
-        "command": "systemctl daemon-reload"
+        "action": "systemctl",
+        "operation": "daemon-reload"
       },
       {
-        "action": "exec",
-        "command": "systemctl enable docker.service"
+        "action": "systemctl",
+        "operation": "enable",
+        "service": "docker.service"
       },
       {
-        "action": "exec",
-        "command": "systemctl start docker.service"
+        "action": "systemctl",
+        "operation": "start",
+        "service": "docker.service"
       }
     ]
   },
@@ -128,13 +130,15 @@
   "uninstall": {
     "steps": [
       {
-        "action": "exec",
-        "command": "systemctl stop docker.service",
+        "action": "systemctl",
+        "operation": "stop",
+        "service": "docker.service",
         "ignore_error": true
       },
       {
-        "action": "exec",
-        "command": "systemctl disable docker.service",
+        "action": "systemctl",
+        "operation": "disable",
+        "service": "docker.service",
         "ignore_error": true
       },
       {
@@ -182,8 +186,8 @@
         "path": "${PACKAGES_DIR}/docker"
       },
       {
-        "action": "exec",
-        "command": "systemctl daemon-reload"
+        "action": "systemctl",
+        "operation": "daemon-reload"
       }
     ]
   },
