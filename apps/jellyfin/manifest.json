@@ -90,6 +90,11 @@
           "restart": "on-failure",
           "ports": [
             {
+              "host": 8096,
+              "container": 8096,
+              "protocol": "tcp"
+            },
+            {
               "host": 7359,
               "container": 7359,
               "protocol": "udp"

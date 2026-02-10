@@ -81,6 +81,11 @@
           "restart": "on-failure",
           "ports": [
             {
+              "host": 51821,
+              "container": 51821,
+              "protocol": "tcp"
+            },
+            {
               "host": 51820,
               "container": 51820,
               "protocol": "udp"

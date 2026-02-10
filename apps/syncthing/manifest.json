@@ -86,6 +86,11 @@
           "restart": "on-failure",
           "ports": [
             {
+              "host": 8384,
+              "container": 8384,
+              "protocol": "tcp"
+            },
+            {
               "host": 22000,
               "container": 22000,
               "protocol": "tcp"
