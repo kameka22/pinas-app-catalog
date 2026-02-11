@@ -145,7 +145,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:sync",
     "gradient": "from-blue-400 to-cyan-500",
     "window": {

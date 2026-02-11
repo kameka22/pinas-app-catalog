@@ -157,7 +157,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:backup-restore",
     "gradient": "from-blue-500 to-indigo-600",
     "window": {

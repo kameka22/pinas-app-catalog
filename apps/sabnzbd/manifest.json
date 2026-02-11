@@ -163,7 +163,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:download-box",
     "gradient": "from-yellow-500 to-amber-600",
     "window": {

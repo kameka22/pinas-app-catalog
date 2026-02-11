@@ -135,7 +135,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:vpn",
     "gradient": "from-red-500 to-pink-600",
     "window": {

@@ -202,7 +202,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:sitemap",
     "gradient": "from-red-500 to-red-700",
     "window": {

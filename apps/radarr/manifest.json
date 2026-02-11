@@ -55,7 +55,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:filmstrip-box",
     "gradient": "from-amber-500 to-yellow-600",
     "window": {

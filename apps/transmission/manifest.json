@@ -54,7 +54,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:download",
     "gradient": "from-red-600 to-red-800",
     "window": {

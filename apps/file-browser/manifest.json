@@ -171,7 +171,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:folder",
     "gradient": "from-teal-500 to-emerald-600",
     "window": {

@@ -55,7 +55,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:television-classic",
     "gradient": "from-sky-500 to-blue-600",
     "window": {

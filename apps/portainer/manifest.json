@@ -100,7 +100,7 @@
   },
 
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "simple-icons:portainer",
     "gradient": "from-cyan-500 to-blue-500",
     "window": {

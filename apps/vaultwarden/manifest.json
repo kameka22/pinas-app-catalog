@@ -119,7 +119,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:shield-key",
     "gradient": "from-blue-600 to-indigo-700",
     "window": {

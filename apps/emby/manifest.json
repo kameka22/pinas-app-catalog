@@ -147,7 +147,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:play-network",
     "gradient": "from-green-500 to-emerald-600",
     "window": {

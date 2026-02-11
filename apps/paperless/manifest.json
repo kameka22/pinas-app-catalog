@@ -70,7 +70,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:file-document-multiple",
     "gradient": "from-green-600 to-teal-700",
     "window": {

@@ -58,7 +58,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:cloud",
     "gradient": "from-blue-500 to-blue-700",
     "window": {

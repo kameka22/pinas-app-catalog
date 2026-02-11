@@ -107,7 +107,7 @@
   "files": {},
   "config": {},
   "frontend": {
-    "component": "IframeApp",
+    "component": "WebviewApp",
     "icon": "mdi:monitor-dashboard",
     "gradient": "from-green-500 to-lime-600",
     "window": {
