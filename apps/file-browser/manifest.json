@@ -74,8 +74,7 @@
       "labels": {
         "com.pinas.managed": "true",
         "com.pinas.app": "file-browser"
-      },
-      "user": "1000:1000"
+      }
     },
     "steps": [
       {
@@ -146,8 +145,7 @@
           "labels": {
             "com.pinas.managed": "true",
             "com.pinas.app": "file-browser"
-          },
-          "user": "1000:1000"
+          }
         }
       },
       {

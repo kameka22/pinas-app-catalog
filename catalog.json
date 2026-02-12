@@ -211,7 +211,7 @@
     },
     {
       "id": "node-red",
-      "name": "Node-RED (Bitcoin)",
+      "name": "Node-RED",
       "version": "4.1.4",
       "category": "utilities",
       "icon": "mdi:sitemap",

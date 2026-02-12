@@ -1,6 +1,6 @@
 {
   "id": "node-red",
-  "name": "Node-RED (Bitcoin)",
+  "name": "Node-RED",
   "version": "4.1.4",
   "description": {
     "en": "Wire together the Internet of Things",
@@ -18,10 +18,7 @@
       "x86_64"
     ],
     "dependencies": [
-      "docker",
-      "bitcoin",
-      "electrs",
-      "lightning"
+      "docker"
     ]
   },
   "install": {
@@ -44,53 +41,12 @@
           "host": "${APP_DATA_DIR}/data",
           "container": "/data",
           "readonly": false
-        },
-        {
-          "host": "",
-          "container": "/lnd",
-          "readonly": true
         }
       ],
       "environment": [
         {
           "name": "PORT",
           "value": "1880"
-        },
-        {
-          "name": "BITCOIN_NETWORK",
-          "value": "$APP_BITCOIN_NETWORK"
-        },
-        {
-          "name": "BITCOIN_IP",
-          "value": "$APP_BITCOIN_NODE_IP"
-        },
-        {
-          "name": "BITCOIN_RPC_PORT",
-          "value": "$APP_BITCOIN_RPC_PORT"
-        },
-        {
-          "name": "BITCOIN_RPC_USER",
-          "value": "$APP_BITCOIN_RPC_USER"
-        },
-        {
-          "name": "BITCOIN_RPC_PASS",
-          "value": "$APP_BITCOIN_RPC_PASS"
-        },
-        {
-          "name": "LND_IP",
-          "value": "$APP_LIGHTNING_NODE_IP"
-        },
-        {
-          "name": "LND_GRPC_PORT",
-          "value": "$APP_LIGHTNING_NODE_GRPC_PORT"
-        },
-        {
-          "name": "ELECTRUM_IP",
-          "value": "$APP_ELECTRS_NODE_IP"
-        },
-        {
-          "name": "ELECTRUM_PORT",
-          "value": "$APP_ELECTRS_NODE_PORT"
         }
       ],
       "labels": {
@@ -126,53 +82,12 @@
               "host": "${APP_DATA_DIR}/data",
               "container": "/data",
               "readonly": false
-            },
-            {
-              "host": "",
-              "container": "/lnd",
-              "readonly": true
             }
           ],
           "environment": [
             {
               "name": "PORT",
               "value": "1880"
-            },
-            {
-              "name": "BITCOIN_NETWORK",
-              "value": "$APP_BITCOIN_NETWORK"
-            },
-            {
-              "name": "BITCOIN_IP",
-              "value": "$APP_BITCOIN_NODE_IP"
-            },
-            {
-              "name": "BITCOIN_RPC_PORT",
-              "value": "$APP_BITCOIN_RPC_PORT"
-            },
-            {
-              "name": "BITCOIN_RPC_USER",
-              "value": "$APP_BITCOIN_RPC_USER"
-            },
-            {
-              "name": "BITCOIN_RPC_PASS",
-              "value": "$APP_BITCOIN_RPC_PASS"
-            },
-            {
-              "name": "LND_IP",
-              "value": "$APP_LIGHTNING_NODE_IP"
-            },
-            {
-              "name": "LND_GRPC_PORT",
-              "value": "$APP_LIGHTNING_NODE_GRPC_PORT"
-            },
-            {
-              "name": "ELECTRUM_IP",
-              "value": "$APP_ELECTRS_NODE_IP"
-            },
-            {
-              "name": "ELECTRUM_PORT",
-              "value": "$APP_ELECTRS_NODE_PORT"
             }
           ],
           "labels": {
@@ -214,7 +129,7 @@
     "config": {
       "port": 1880,
       "path": "",
-      "title": "Node-RED (Bitcoin)"
+      "title": "Node-RED"
     },
     "i18n": {
       "en": {

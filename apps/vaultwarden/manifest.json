@@ -52,8 +52,7 @@
       "labels": {
         "com.pinas.managed": "true",
         "com.pinas.app": "vaultwarden"
-      },
-      "user": "1000:1000"
+      }
     },
     "steps": [
       {
@@ -94,8 +93,7 @@
           "labels": {
             "com.pinas.managed": "true",
             "com.pinas.app": "vaultwarden"
-          },
-          "user": "1000:1000"
+          }
         }
       },
       {

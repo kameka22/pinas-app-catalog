@@ -51,7 +51,7 @@
       "environment": [
         {
           "name": "WG_HOST",
-          "value": "${DEVICE_DOMAIN_NAME}"
+          "value": "${DEVICE_HOSTNAME}"
         }
       ],
       "labels": {
@@ -101,7 +101,7 @@
           "environment": [
             {
               "name": "WG_HOST",
-              "value": "${DEVICE_DOMAIN_NAME}"
+              "value": "${DEVICE_HOSTNAME}"
             }
           ],
           "labels": {

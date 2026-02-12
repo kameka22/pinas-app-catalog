@@ -69,8 +69,7 @@
       "labels": {
         "com.pinas.managed": "true",
         "com.pinas.app": "duplicati"
-      },
-      "user": "1000:1000"
+      }
     },
     "steps": [
       {
@@ -132,8 +131,7 @@
           "labels": {
             "com.pinas.managed": "true",
             "com.pinas.app": "duplicati"
-          },
-          "user": "1000:1000"
+          }
         }
       },
       {
