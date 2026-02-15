@@ -28,7 +28,7 @@
       "name": "duplicati",
       "hostname": "duplicati",
       "image": "duplicati/duplicati:2.2.0.3",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 38476,
@@ -90,7 +90,7 @@
           "name": "duplicati",
           "hostname": "duplicati",
           "image": "duplicati/duplicati:2.2.0.3",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 38476,

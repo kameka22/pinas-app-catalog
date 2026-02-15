@@ -28,7 +28,7 @@
       "name": "wireguard",
       "hostname": "wireguard",
       "image": "ghcr.io/wg-easy/wg-easy:14",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 51821,
@@ -78,7 +78,7 @@
           "name": "wireguard",
           "hostname": "wireguard",
           "image": "ghcr.io/wg-easy/wg-easy:14",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
             {
               "host": 51821,

@@ -4,9 +4,9 @@ App catalog for [PiNAS](https://github.com/your-repo/pinas) — a modern NAS OS 
 
 ## Overview
 
-This catalog provides 28 ready-to-install applications for PiNAS. Apps are installed through the PiNAS App Center UI and run as Docker containers on LibreELEC.
+This catalog provides 27 ready-to-install applications for PiNAS. Apps are installed through the PiNAS App Center UI and run as Docker containers on LibreELEC.
 
-## Apps (28)
+## Apps (27)
 
 ### Containers
 | App | Description |
@@ -31,7 +31,6 @@ This catalog provides 28 ready-to-install applications for PiNAS. Apps are insta
 ### Network
 | App | Description |
 |-----|-------------|
-| **Samba** | Windows file sharing (SMB/CIFS, binary install) |
 | **Pi-hole** | Network-wide ad blocker (network_mode: host, cap_add: NET_ADMIN) |
 | **AdGuard Home** | DNS ad blocker |
 | **WireGuard** | VPN server |
@@ -62,7 +61,7 @@ app-catalog/
     ├── portainer/manifest.json
     ├── jellyfin/manifest.json
     ├── nextcloud/manifest.json
-    └── ...                   # 28 app manifests
+    └── ...                   # 27 app manifests
 ```
 
 ## Manifest Format
@@ -106,7 +105,7 @@ Each app has a `manifest.json` with:
 | `mkdir` | Create directory |
 | `copy`, `symlink`, `chmod` | File operations |
 | `template`, `write_file` | Write config files (base64) |
-| `exec` | Run shell command |
+| `systemctl` | Systemd operations (daemon-reload, enable, start, stop, restart) |
 | `docker_pull` | Pull Docker image |
 | `docker_create` | Create container (with full ContainerConfig) |
 | `docker_start` / `docker_stop` / `docker_rm` | Container lifecycle |
@@ -118,7 +117,7 @@ Each app has a `manifest.json` with:
 `docker_create` supports:
 - `image`, `ports`, `volumes`, `environment`
 - `network` (host, bridge)
-- `restart_policy` (always, unless-stopped)
+- `restart_policy` (unless-stopped by default for all apps)
 - `cap_add` / `cap_drop` (NET_ADMIN, SYS_ADMIN, etc.)
 - `command`, `entrypoint`, `user`
 - `dns`, `extra_hosts`, `tmpfs`
@@ -158,7 +157,6 @@ The script handles:
 ## Roadmap
 
 - [x] Docker & Portainer (binary + Docker install)
-- [x] Samba (binary install)
 - [x] 25 Umbrel apps converted (media, network, utilities)
 - [x] Docker Compose support for multi-container apps
 - [x] French translations for all apps

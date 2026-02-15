@@ -28,7 +28,7 @@
       "name": "emby",
       "hostname": "emby",
       "image": "linuxserver/emby:version-4.9.3.0",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8097,
@@ -86,7 +86,7 @@
           "name": "emby",
           "hostname": "emby",
           "image": "linuxserver/emby:version-4.9.3.0",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 8097,

@@ -28,7 +28,7 @@
       "name": "qbittorrent",
       "hostname": "qbittorrent",
       "image": "ghcr.io/hotio/qbittorrent:release-5.1.2",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8094,
@@ -82,7 +82,7 @@
           "name": "qbittorrent",
           "hostname": "qbittorrent",
           "image": "ghcr.io/hotio/qbittorrent:release-5.1.2",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 8094,

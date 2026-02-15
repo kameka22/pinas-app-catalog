@@ -28,7 +28,7 @@
       "name": "grafana",
       "hostname": "grafana",
       "image": "grafana/grafana:12.3.2",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 3030,
@@ -65,7 +65,7 @@
           "name": "grafana",
           "hostname": "grafana",
           "image": "grafana/grafana:12.3.2",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 3030,

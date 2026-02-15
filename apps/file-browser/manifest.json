@@ -28,7 +28,7 @@
       "name": "file-browser",
       "hostname": "file-browser",
       "image": "filebrowser/filebrowser:v2.57.0",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 7421,
@@ -99,7 +99,7 @@
           "name": "file-browser",
           "hostname": "file-browser",
           "image": "filebrowser/filebrowser:v2.57.0",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 7421,

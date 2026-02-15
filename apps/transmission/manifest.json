@@ -36,7 +36,7 @@
       {
         "action": "compose_up",
         "dest": "${APP_DATA_DIR}/docker-compose.yml",
-        "content": "services:\n  server:\n    image: linuxserver/transmission:4.1.0\n    restart: on-failure\n    ports:\n    - 9091:9091\n    - 51413:51413\n    - 51413:51413/udp\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n    - PUID=1000\n    - PGID=1000\n",
+        "content": "services:\n  server:\n    image: linuxserver/transmission:4.1.0\n    restart: unless-stopped\n    ports:\n    - 9091:9091\n    - 51413:51413\n    - 51413:51413/udp\n    volumes:\n    - ${APP_DATA_DIR}/data/config:/config\n    - ${DATA_DIR}/storage/downloads:/downloads\n    environment:\n    - PUID=1000\n    - PGID=1000\n",
         "project_name": "transmission"
       }
     ]

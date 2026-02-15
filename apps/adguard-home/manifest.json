@@ -28,7 +28,7 @@
       "name": "adguard-home",
       "hostname": "adguard-home",
       "image": "adguard/adguardhome:v0.107.71",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [],
       "volumes": [
         {
@@ -80,7 +80,7 @@
           "name": "adguard-home",
           "hostname": "adguard-home",
           "image": "adguard/adguardhome:v0.107.71",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [],
           "volumes": [
             {

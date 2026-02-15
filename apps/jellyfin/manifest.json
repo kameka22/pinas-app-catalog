@@ -28,7 +28,7 @@
       "name": "jellyfin",
       "hostname": "jellyfin",
       "image": "linuxserver/jellyfin:10.11.6",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8096,
@@ -87,7 +87,7 @@
           "name": "jellyfin",
           "hostname": "jellyfin",
           "image": "linuxserver/jellyfin:10.11.6",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
             {
               "host": 8096,

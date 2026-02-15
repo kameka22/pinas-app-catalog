@@ -28,7 +28,7 @@
       "name": "vaultwarden",
       "hostname": "vaultwarden",
       "image": "vaultwarden/server:1.34.3",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8089,
@@ -69,7 +69,7 @@
           "name": "vaultwarden",
           "hostname": "vaultwarden",
           "image": "vaultwarden/server:1.34.3",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 8089,

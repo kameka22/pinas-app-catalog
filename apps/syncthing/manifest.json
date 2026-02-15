@@ -28,7 +28,7 @@
       "name": "syncthing",
       "hostname": "syncthing",
       "image": "syncthing/syncthing:2.0.14",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8384,
@@ -83,7 +83,7 @@
           "name": "syncthing",
           "hostname": "syncthing",
           "image": "syncthing/syncthing:2.0.14",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
             {
               "host": 8384,

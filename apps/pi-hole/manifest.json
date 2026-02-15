@@ -28,7 +28,7 @@
       "name": "pi-hole",
       "hostname": "pi-hole",
       "image": "pihole/pihole:2025.11.1",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [],
       "volumes": [
         {
@@ -84,7 +84,7 @@
           "name": "pi-hole",
           "hostname": "pi-hole",
           "image": "pihole/pihole:2025.11.1",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [],
           "volumes": [
             {

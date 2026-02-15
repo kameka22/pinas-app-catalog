@@ -28,7 +28,7 @@
       "name": "uptime-kuma",
       "hostname": "uptime-kuma",
       "image": "louislam/uptime-kuma:2.0.2",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8385,
@@ -64,7 +64,7 @@
           "name": "uptime-kuma",
           "hostname": "uptime-kuma",
           "image": "louislam/uptime-kuma:2.0.2",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 8385,

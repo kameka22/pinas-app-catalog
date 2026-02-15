@@ -28,7 +28,7 @@
       "name": "plex",
       "hostname": "plex",
       "image": "linuxserver/plex:1.43.0",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [],
       "volumes": [
         {
@@ -90,7 +90,7 @@
           "name": "plex",
           "hostname": "plex",
           "image": "linuxserver/plex:1.43.0",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [],
           "volumes": [
             {

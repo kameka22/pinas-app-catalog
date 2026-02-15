@@ -6,11 +6,10 @@ Hébergé sur GitHub : `kameka22/pinas-app-catalog`
 
 ```
 app-catalog/
-├── catalog.json              # Index avec metadata (28 apps)
+├── catalog.json              # Index avec metadata (27 apps)
 └── apps/
     ├── docker/manifest.json  # Manifest Docker (binaire)
     ├── portainer/manifest.json
-    ├── samba/manifest.json
     ├── jellyfin/manifest.json
     ├── nextcloud/manifest.json  # Multi-container (Compose)
     └── ...
@@ -41,12 +40,16 @@ app-catalog/
       { "action": "symlink", "src": "...", "dest": "..." },
       { "action": "chmod", "path": "...", "mode": "755" },
       { "action": "template", "src": "...", "dest": "..." },
-      { "action": "exec", "command": "..." }
+      { "action": "systemctl", "operation": "enable", "service": "..." },
+      { "action": "docker_pull", "image": "..." },
+      { "action": "docker_create", "config": { "name": "...", "image": "..." } },
+      { "action": "docker_start", "container": "..." },
+      { "action": "compose_up", "dest": "...", "content": "..." }
     ]
   },
   "uninstall": {
     "steps": [
-      { "action": "exec", "command": "...", "ignore_error": true },
+      { "action": "systemctl", "operation": "stop", "service": "...", "ignore_error": true },
       { "action": "delete", "path": "..." }
     ]
   },

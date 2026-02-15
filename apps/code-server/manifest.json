@@ -28,7 +28,7 @@
       "name": "code-server",
       "hostname": "code-server",
       "image": "codercom/code-server:4.108.2",
-      "restart": "on-failure",
+      "restart": "unless-stopped",
       "ports": [
         {
           "host": 8091,
@@ -69,7 +69,7 @@
           "name": "code-server",
           "hostname": "code-server",
           "image": "codercom/code-server:4.108.2",
-          "restart": "on-failure",
+          "restart": "unless-stopped",
           "ports": [
         {
           "host": 8091,

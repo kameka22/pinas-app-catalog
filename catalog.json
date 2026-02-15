@@ -30,19 +30,6 @@
       "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/portainer/manifest.json"
     },
     {
-      "id": "samba",
-      "name": "Samba",
-      "version": "4.18.0",
-      "category": "network",
-      "icon": "mdi:microsoft-windows",
-      "dependencies": [],
-      "description": {
-        "en": "Windows file sharing service (SMB/CIFS)",
-        "fr": "Service de partage de fichiers Windows (SMB/CIFS)"
-      },
-      "manifest": "https://raw.githubusercontent.com/kameka22/pinas-app-catalog/master/apps/samba/manifest.json"
-    },
-    {
       "id": "adguard-home",
       "name": "AdGuard Home",
       "version": "0.107.71",
